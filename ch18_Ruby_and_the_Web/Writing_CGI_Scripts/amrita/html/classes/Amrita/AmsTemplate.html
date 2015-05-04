@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Amrita::AmsTemplate</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Amrita::AmsTemplate</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../files/lib/amrita/ams_rb.html">
+                lib/amrita/ams.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                <a href="TemplateFile.html">
+                TemplateFile
+               </a>
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000112">[]</a>&nbsp;&nbsp;
+      <a href="#M000110">cache_path</a>&nbsp;&nbsp;
+      <a href="#M000111">cache_valid?</a>&nbsp;&nbsp;
+      <a href="#M000109">expand</a>&nbsp;&nbsp;
+      <a href="#M000106">load_ams_template</a>&nbsp;&nbsp;
+      <a href="#M000107">load_template</a>&nbsp;&nbsp;
+      <a href="#M000108">setup_context</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">RScript1</td>
+          <td>=</td>
+          <td class="context-item-value">%r[&lt;AmritaScript type=&quot;([^&quot;]*)&quot;&gt;\s*&lt;!--\s*(.*?)\s*//--&gt;\s*&lt;/AmritaScript&gt;\s*]mi</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">RScript2</td>
+          <td>=</td>
+          <td class="context-item-value">%r&quot;&lt;AmritaScript&gt;\s*&lt;!--\s*(.*?)\s*//--&gt;\s*&lt;/AmritaScript&gt;\s*&quot;mi</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000112" class="method-detail">
+        <a name="M000112"></a>
+
+        <div class="method-heading">
+          <a href="#M000112" class="method-signature">
+          <span class="method-name">[]</span><span class="method-args">(path)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000112-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000112-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/amrita/ams.rb, line 96</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-constant">AmsTemplate</span><span class="ruby-operator">::</span><span class="ruby-operator">[]</span>(<span class="ruby-identifier">path</span>)
+      <span class="ruby-identifier">ret</span> = <span class="ruby-ivar">@@template_cache</span>[<span class="ruby-identifier">path</span>]
+      <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">ret</span>
+        <span class="ruby-ivar">@@template_cache</span>[<span class="ruby-identifier">path</span>] = <span class="ruby-identifier">ret</span> = <span class="ruby-constant">AmsTemplate</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">path</span>)
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">ret</span>
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000110" class="method-detail">
+        <a name="M000110"></a>
+
+        <div class="method-heading">
+          <a href="#M000110" class="method-signature">
+          <span class="method-name">cache_path</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000110-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000110-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/amrita/ams.rb, line 80</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">cache_path</span>
+      <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@@cache_dir</span>
+        <span class="ruby-ivar">@@cache_dir</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;/&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-constant">File</span><span class="ruby-operator">::</span><span class="ruby-identifier">basename</span>(<span class="ruby-ivar">@path</span>) <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;.amrita&quot;</span>
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-keyword kw">nil</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000111" class="method-detail">
+        <a name="M000111"></a>
+
+        <div class="method-heading">
+          <a href="#M000111" class="method-signature">
+          <span class="method-name">cache_valid?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000111-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000111-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/amrita/ams.rb, line 88</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">cache_valid?</span>
+      <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@@cache_dir</span> <span class="ruby-keyword kw">and</span> <span class="ruby-constant">FileTest</span><span class="ruby-operator">::</span><span class="ruby-identifier">readable?</span>(<span class="ruby-identifier">cache_path</span>) 
+        <span class="ruby-constant">File</span><span class="ruby-operator">::</span><span class="ruby-identifier">stat</span>(<span class="ruby-ivar">@path</span>).<span class="ruby-identifier">mtime</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-constant">File</span><span class="ruby-operator">::</span><span class="ruby-identifier">stat</span>(<span class="ruby-identifier">cache_path</span>).<span class="ruby-identifier">mtime</span>
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-keyword kw">false</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000109" class="method-detail">
+        <a name="M000109"></a>
+
+        <div class="method-heading">
+          <a href="#M000109" class="method-signature">
+          <span class="method-name">expand</span><span class="method-args">(stream)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000109-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000109-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/amrita/ams.rb, line 69</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">expand</span>(<span class="ruby-identifier">stream</span>)
+      <span class="ruby-identifier">load_ams_template</span> 
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">need_update?</span>
+        <span class="ruby-identifier">setup_template</span> 
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">context</span> = <span class="ruby-identifier">setup_context</span>
+      <span class="ruby-identifier">formatter</span> = <span class="ruby-identifier">setup_formatter</span>(<span class="ruby-identifier">stream</span>)
+      <span class="ruby-identifier">do_expand</span>(<span class="ruby-ivar">@data</span>, <span class="ruby-identifier">context</span>, <span class="ruby-identifier">formatter</span>)
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000106" class="method-detail">
+        <a name="M000106"></a>
+
+        <div class="method-heading">
+          <a href="#M000106" class="method-signature">
+          <span class="method-name">load_ams_template</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000106-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000106-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/amrita/ams.rb, line 11</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">load_ams_template</span>
+      <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-ivar">@path</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
+        <span class="ruby-ivar">@template_text</span>  = <span class="ruby-identifier">f</span>.<span class="ruby-identifier">read</span>
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">typ</span>, <span class="ruby-identifier">script</span> = <span class="ruby-keyword kw">nil</span>, <span class="ruby-keyword kw">nil</span>
+      <span class="ruby-keyword kw">case</span> <span class="ruby-ivar">@template_text</span> 
+      <span class="ruby-keyword kw">when</span> <span class="ruby-constant">RScript1</span>
+        <span class="ruby-identifier">typ</span>, <span class="ruby-identifier">script</span> = <span class="ruby-identifier">$1</span>, <span class="ruby-identifier">$2</span>
+        <span class="ruby-ivar">@template_text</span>.<span class="ruby-identifier">gsub!</span>( <span class="ruby-constant">RScript1</span>, <span class="ruby-value str">&quot;&quot;</span>) 
+      <span class="ruby-keyword kw">when</span> <span class="ruby-constant">RScript2</span>
+        <span class="ruby-identifier">typ</span>, <span class="ruby-identifier">script</span> = <span class="ruby-value str">&quot;eval&quot;</span>, <span class="ruby-identifier">$1</span>
+        <span class="ruby-ivar">@template_text</span>.<span class="ruby-identifier">gsub!</span>( <span class="ruby-constant">RScript2</span>, <span class="ruby-value str">&quot;&quot;</span>) 
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-comment cmt"># do nothing</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-ivar">@ams_type</span> = <span class="ruby-identifier">typ</span>
+      <span class="ruby-keyword kw">case</span> <span class="ruby-ivar">@ams_type</span>
+      <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;eval&quot;</span>
+        <span class="ruby-identifier">script</span> = <span class="ruby-identifier">script</span>.<span class="ruby-identifier">untaint</span>
+        <span class="ruby-ivar">@data</span> = <span class="ruby-identifier">eval</span>(<span class="ruby-identifier">script</span>, <span class="ruby-constant">TOPLEVEL_BINDING</span>)
+      <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;module&quot;</span>
+        <span class="ruby-identifier">script</span> = <span class="ruby-identifier">script</span>.<span class="ruby-identifier">untaint</span>
+        <span class="ruby-identifier">cls</span> = <span class="ruby-constant">Class</span>.<span class="ruby-identifier">new</span>
+        <span class="ruby-identifier">cls</span>.<span class="ruby-identifier">module_eval</span> <span class="ruby-identifier">script</span>
+        <span class="ruby-identifier">obj</span> = <span class="ruby-identifier">cls</span>.<span class="ruby-identifier">new</span>
+        <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">extend</span> <span class="ruby-constant">ExpandByMember</span>
+        <span class="ruby-ivar">@data</span> = <span class="ruby-identifier">obj</span>
+      <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;yaml&quot;</span>
+        <span class="ruby-identifier">require</span> <span class="ruby-value str">&quot;yaml&quot;</span>
+        <span class="ruby-ivar">@data</span> = <span class="ruby-constant">YAML</span><span class="ruby-operator">::</span><span class="ruby-identifier">load</span> <span class="ruby-identifier">script</span>
+      <span class="ruby-keyword kw">when</span> <span class="ruby-keyword kw">nil</span>
+        <span class="ruby-ivar">@data</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">true</span>)
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;unknown script type #{typ}&quot;</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000107" class="method-detail">
+        <a name="M000107"></a>
+
+        <div class="method-heading">
+          <a href="#M000107" class="method-signature">
+          <span class="method-name">load_template</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000107-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000107-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/amrita/ams.rb, line 49</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">load_template</span>
+
+      <span class="ruby-ivar">@template</span> = <span class="ruby-identifier">get_parser_class</span>.<span class="ruby-identifier">parse_text</span>(<span class="ruby-ivar">@template_text</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@parser_filter</span>
+          <span class="ruby-ivar">@parser_filter</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">e</span>)
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">e</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000108" class="method-detail">
+        <a name="M000108"></a>
+
+        <div class="method-heading">
+          <a href="#M000108" class="method-signature">
+          <span class="method-name">setup_context</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000108-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000108-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/amrita/ams.rb, line 60</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">setup_context</span>
+      <span class="ruby-identifier">context</span> = <span class="ruby-keyword kw">super</span>
+      <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@ams_type</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;yaml&quot;</span>
+        <span class="ruby-identifier">context</span>.<span class="ruby-identifier">hash_key_is_string</span> = <span class="ruby-keyword kw">true</span> 
+        <span class="ruby-identifier">context</span>.<span class="ruby-identifier">expand_attr</span> = <span class="ruby-keyword kw">true</span>
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">context</span>
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

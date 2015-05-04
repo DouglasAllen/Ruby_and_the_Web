@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<title>Dynamic WEBRick Servers in Ruby - igvita.com</title>
+<script src="Dynamic%20WEBRick%20Servers%20in%20Ruby%20-%20igvita.com_files/analytics.js" async="" type="text/javascript"></script><script type="text/javascript">window.mod_pagespeed_start = Number(new Date());</script><script>var dataLayer=dataLayer||[];dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});</script>
+<script src="Dynamic%20WEBRick%20Servers%20in%20Ruby%20-%20igvita.com_files/gtm.js" async="" defer="defer"></script>
+<link rel="dns-prefetch" href="https://themes.googleusercontent.com/">
+<link rel="stylesheet" href="Dynamic%20WEBRick%20Servers%20in%20Ruby%20-%20igvita.com_files/css.css">
+<style>footer,header{display:block}html{font-size:100%;overflow-y:scroll;-webkit-tap-highlight-color:rgba(0,0,0,0);-ms-text-size-adjust:100%;-webkit-text-size-adjust:none;background-color:#000}body{margin:0;font-size:14px;line-height:1.61;font-weight:400}body{font-family:'Open Sans',sans-serif;color:#333}::-moz-selection{background:#bfbebd;color:#222;text-shadow:none}::selection{background:#bfbebd;color:#222;text-shadow:none}a{color:#12c}a:visited{color:#61c}a:focus{outline:thin dotted}a:hover,a:active{color:#c00;outline:0}b,strong{font-weight:bold}blockquote{margin:1em 40px}pre,code{font-family:monospace,monospace;_font-family:'courier new' , monospace;font-size:1em}pre{white-space:pre;white-space:pre-wrap;word-wrap:break-word}img{border:0;-ms-interpolation-mode:bicubic}svg:not(:root) {overflow:hidden}body{background:#fff}#container{}.content,#copyright .group,#meta .group{max-width:55em;margin:0 auto}header,#copyright{background:#000;color:#fff}header,#main{padding:1em 2em}header span{font-size:13px;color:#bfbfbf}header a,header a:visited,footer a,footer a:visited{color:#fff;text-decoration:none}header a:hover,footer a:hover{color:#bfbfbf;text-decoration:none}#main{background:#fff;padding-top:1em}h1{margin-top:0;padding-top:.5em}.byline{font-size:13px;color:#999;margin:-1.5em 0 1.5em 0;font-style:italic}#meta{background:#272727;color:#858585}#meta a{color:#bfbfbf}#meta a:hover{color:#fff}#meta h3{margin:0}#meta .book-cover{display:block;width:137px;height:178px;float:left;margin-right:1em;margin-top:.8em;background:url(https://1-ps.googleusercontent.com/sk/bYSmB63yuhjL_l7bPRuu4R3ENi/www.igvita.com/posts/projects/xbook-cover-1x.png.pagespeed.ic.4az-yn4Ls88f-zqXtYcq.png) no-repeat left top}@media only screen and (-webkit-min-device-pixel-ratio:2),only screen and (min--moz-device-pixel-ratio:2),only screen and (-o-min-device-pixel-ratio:2/1),only screen and (min-device-pixel-ratio:2),only screen and (min-resolution:192dpi),only screen and (min-resolution:2dppx){#meta .book-cover{background:url(https://1-ps.googleusercontent.com/sk/bYSmB63yuhjL_l7bPRuu4R3ENi/www.igvita.com/posts/projects/xbook-cover-2x.png.pagespeed.ic.o0UmCTAOnlDnuX3TNk3O.png) no-repeat left top;background-size:137px 178px}}#meta .book{padding:1.5em 2em 1.5em 2em;color:#bfbfbf}pre code{font-family:Verdana,sans-serif;font-size:13px;padding:1em!important;border-radius:1em;background:#272727;display:block;color:#bfbfbf}code{padding:1px 4px 3px 4px;background:#eee;border-radius:5px;color:#666}div.download{background:#dedede url(https://1-ps.googleusercontent.com/sk/bYSmB63yuhjL_l7bPRuu4R3ENi/www.igvita.com/images/xdownload.png.pagespeed.ic.Ysx6Kr_xCA0uVIachT0N.png) no-repeat 1em;padding:.75em 4em;border-radius:5px;color:#666}blockquote{color:#888;font-style:italic}blockquote:before{font-family:Helvetica;content:'\201C';font-size:50px;vertical-align:bottom;margin-left:-40px;padding-right:20px;line-height:0}blockquote pre{font-family:Verdana,sans-serif;font-size:12px;margin-top:-1.5em}a.about{float:right;font-size:13px;padding-left:3em}#comments{margin-top:1em}#copyright{background:#000;padding:1em 2em}#copyright span{font-size:11px;color:#bfbfbf}.button{background:#77d42a;background:-moz-linear-gradient(top,#77d42a 0,#5cb811 100%);background:-webkit-gradient(linear,left top,left bottom,color-stop(0,#77d42a),color-stop(100%,#5cb811));background:-webkit-linear-gradient(top,#77d42a 0,#5cb811 100%);background:-o-linear-gradient(top,#77d42a 0,#5cb811 100%);background:-ms-linear-gradient(top,#77d42a 0,#5cb811 100%);padding:.5em 1.25em;border-radius:8px;border:1px solid #268a16;font-weight:bold;color:#306108;text-shadow:1px 1px 0 #aade7c;text-decoration:none!important}.button:hover{color:#00008f}.book-cover{width:138px;height:200px;float:left;margin-right:1.5em}.author-callout{font-size:95%;font-style:italic;background-color:#fafaff;padding:1em;margin-top:2em;border-top:1px solid #b6b6b6}.author-callout img{float:left;margin:.2em .75em 0 0}.social{padding:.5em 1em;background-color:#eee;border-top:1px solid #b6b6b6;border-bottom:1px solid #b6b6b6}.social a{text-decoration:none;font-weight:bold}@media only screen and (max-width:480px){header span,header b,footer .rss{display:none}#meta .group{background:#272727;background-image:none}#meta{max-height:none}}@media only screen and (max-device-width:768px){header,#main,#copyright{padding:1em 1em}}@media print{@page { margin: 0.5cm; }}.k{color:#66d9ef}.n{color:#f8f8f2}.o{color:#f92672}.p{color:#f8f8f2}.c1{color:#75715e}.nb{color:#f8f8f2}.nc{color:#a6e22e}.no{color:#66d9ef}.nf{color:#a6e22e}.mi{color:#ae81ff}.s2{color:#e6db74}.se{color:#ae81ff}.si{color:#e6db74}.s1{color:#e6db74}.ss{color:#e6db74}.bp{color:#f8f8f2}.vg{color:#f8f8f2}</style>
+<meta name="author" content="Ilya Grigorik">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@igrigorik">
+<meta name="twitter:url" content="https://www.igvita.com/2007/02/13/building-dynamic-webrick-servers-in-ruby/">
+<meta name="twitter:title" content="Dynamic WEBRick Servers in Ruby">
+<meta property="twitter:account_id" content="9980812">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<link rel="alternate" type="application/rss+xml" title="igvita.com RSS Feed" href="https://www.igvita.com/feed/">
+<link rel="canonical" href="https://www.igvita.com/2007/02/13/building-dynamic-webrick-servers-in-ruby/">
+<link rel="dns-prefetch" href="https://1-ps.googleusercontent.com/"><link rel="dns-prefetch" href="https://go.disqus.com/"><link type="text/css" rel="stylesheet" href="Dynamic%20WEBRick%20Servers%20in%20Ruby%20-%20igvita.com_files/mytube.css"><script src="Dynamic%20WEBRick%20Servers%20in%20Ruby%20-%20igvita.com_files/mutationObserver.js"></script><script src="Dynamic%20WEBRick%20Servers%20in%20Ruby%20-%20igvita.com_files/a.js"></script><script src="Dynamic%20WEBRick%20Servers%20in%20Ruby%20-%20igvita.com_files/mytube.js"></script><script src="Dynamic%20WEBRick%20Servers%20in%20Ruby%20-%20igvita.com_files/count-data.js" async=""></script></head>
+<body>
+<div id="container">
+<header>
+<div class="content">
+<a href="https://www.igvita.com/">igvita.com</a> <b>&nbsp;|&nbsp;</b> <span>a goal is a dream with a deadline</span>
+<a href="https://www.igvita.com/" class="about">about</a>
+</div>
+</header>
+<div id="main" role="main">
+<div id="post" class="content" itemscope="" itemtype="http://schema.org/Article">
+<h1 itemprop="name">Dynamic WEBRick Servers in Ruby</h1>
+<p class="byline">By <a href="https://www.igvita.com/" rel="author" itemprop="author">Ilya Grigorik</a> on <b itemprop="datePublished" datetime="2007-02-13">February 13, 2007</b></p>
+<p>Sometimes it's nice to have a self contained click-'n-run web-server -
+ this way you are not dependent on presence of Apache, Mongrel, or any 
+other 3rd party package. One way to go about this, is to do some <a href="http://www.igvita.com/2006/12/11/visual-database-explorer-in-ruby/">socket programming</a>. However, sockets may be too low-level for comfort, instead we can leverage yet another great Ruby library: <a href="http://www.webrick.org/">WEBrick</a>.
+ Most Rails developers will be very familiar with WEBRick, but most 
+don't realize how powerful it can be for quick mock-ups and one-off 
+proofs of concept.</p>
+<p>In my case, I wanted to run a quick, dynamic survey where the 
+questions were pulled from the database, and the results would be 
+persisted to disk. Specifically, I wanted to ask users to rank about a 
+hundred different news stories for affect and impact. Thus, I needed to 
+dynamically serve GET requests from the database, and also be able to 
+process POST request (from the survey form) to persist my data. With the
+ help of WEBRick I could do exactly this in about 60 lines of code.</p>
+<h2>Initializing WEBRick servers</h2>
+<p>A quick browse through the <a href="http://segment7.net/projects/ruby/WEBrick/servlets.html">servlet</a> examples, along with the <a href="http://www.ruby-doc.org/stdlib/libdoc/webrick/rdoc/">RDoc</a>
+ gets us well on the way. We will start our server on port 8000, and 
+mount two 'paths' - one for serving the survey, and second for 
+processing the POST request (saving the form):</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">require</span> <span class="s1">'rubygems'</span>
+<span class="nb">require</span> <span class="s1">'webrick'</span>
+<span class="nb">require</span> <span class="s1">'dbi'</span>
+
+<span class="c1"># Initialize our WEBrick server</span>
+<span class="k">if</span> <span class="vg">$0</span> <span class="o">==</span> <span class="bp">__FILE__</span> <span class="k">then</span>
+  <span class="n">server</span> <span class="o">=</span> <span class="no">WEBrick</span><span class="o">::</span><span class="no">HTTPServer</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:Port</span> <span class="o">=&gt;</span> <span class="mi">8000</span><span class="p">)</span>
+  <span class="n">server</span><span class="o">.</span><span class="n">mount</span> <span class="s2">"/questions"</span><span class="p">,</span> <span class="no">WebForm</span>
+  <span class="n">server</span><span class="o">.</span><span class="n">mount</span> <span class="s2">"/save"</span><span class="p">,</span> <span class="no">PersistAnswers</span>
+  <span class="nb">trap</span> <span class="s2">"INT"</span> <span class="k">do</span> <span class="n">server</span><span class="o">.</span><span class="n">shutdown</span> <span class="k">end</span>
+  <span class="n">server</span><span class="o">.</span><span class="n">start</span>
+<span class="k">end</span></code></pre></div>
+<h2>Serving GET requests</h2>
+<p>From the initialization code, you will notice that we specified <strong>WebForm</strong> and <strong>PersistAnswers</strong>
+ as the two classes that will process each request. Specifically, the 
+user will first request to see the questions (issue a GET request), thus
+ we need to define a WebForm class that will build and return to the 
+user the HTML for our survey. To do this, we simply inherit from 
+AbstractServlet, and define the do_GET method:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">WebForm</span> <span class="o">&lt;</span> <span class="no">WEBrick</span><span class="o">::</span><span class="no">HTTPServlet</span><span class="o">::</span><span class="no">AbstractServlet</span>
+
+  <span class="c1"># Process the request, return response</span>
+  <span class="k">def</span> <span class="nf">do_GET</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">response</span><span class="p">)</span>
+    <span class="n">status</span><span class="p">,</span> <span class="n">content_type</span><span class="p">,</span> <span class="n">body</span> <span class="o">=</span> <span class="n">print_questions</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+
+    <span class="n">response</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">status</span>
+    <span class="n">response</span><span class="o">[</span><span class="s1">'Content-Type'</span><span class="o">]</span> <span class="o">=</span> <span class="n">content_type</span>
+    <span class="n">response</span><span class="o">.</span><span class="n">body</span> <span class="o">=</span> <span class="n">body</span>
+  <span class="k">end</span>
+
+  <span class="c1"># Construct the return HTML page</span>
+  <span class="k">def</span> <span class="nf">print_questions</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="n">html</span>   <span class="o">=</span> <span class="s2">"&lt;html&gt;&lt;body&gt;&lt;form method='POST' action='/save'&gt;"</span>
+    <span class="n">html</span> <span class="o">+=</span> <span class="s2">"Name: &lt;input type='textbox' name='first_name' /&gt;&lt;br /&gt;&lt;br /&gt;"</span><span class="p">;</span>
+
+    <span class="n">dbh</span> <span class="o">=</span> <span class="no">DBI</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">"DBI:Mysql:webarchive:localhost"</span><span class="p">,</span> <span class="s2">"root"</span><span class="p">,</span> <span class="s2">"pass"</span><span class="p">)</span>
+    <span class="n">sth</span> <span class="o">=</span> <span class="n">dbh</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">"SELECT headline, story, id FROM yahoo_news where date &gt;= '2004-12-01' and date &lt;= '2005-01-01'"</span><span class="p">)</span>
+
+      <span class="c1"># iterate over every returned news-story from the database</span>
+      <span class="k">while</span> <span class="n">row</span> <span class="o">=</span> <span class="n">sth</span><span class="o">.</span><span class="n">fetch_hash</span> <span class="k">do</span>
+          <span class="n">html</span> <span class="o">+=</span> <span class="s2">"&lt;b&gt;</span><span class="si">#{</span><span class="n">row</span><span class="o">[</span><span class="s1">'headline'</span><span class="o">]</span><span class="si">}</span><span class="s2">&lt;/b&gt;&lt;br /&gt;</span><span class="se">\n</span><span class="s2">"</span>
+          <span class="n">html</span> <span class="o">+=</span> <span class="s2">"</span><span class="si">#{</span><span class="n">row</span><span class="o">[</span><span class="s1">'story'</span><span class="o">]</span><span class="si">}</span><span class="s2">&lt;br /&gt;</span><span class="se">\n</span><span class="s2">"</span>
+          <span class="n">html</span> <span class="o">+=</span> <span class="s2">"&lt;input type='textbox' name='</span><span class="si">#{</span><span class="n">row</span><span class="o">[</span><span class="s1">'id'</span><span class="o">]</span><span class="si">}</span><span class="s2">' /&gt;&lt;br /&gt;&lt;br /&gt;</span><span class="se">\n</span><span class="s2">"</span>
+     <span class="k">end</span>
+     <span class="n">sth</span><span class="o">.</span><span class="n">finish</span>
+
+    <span class="n">html</span> <span class="o">+=</span> <span class="s2">"&lt;input type='submit'&gt;&lt;/form&gt;&lt;/body&gt;&lt;/html&gt;"</span>
+
+    <span class="c1"># Return OK (200), content-type: text/html, followed by the HTML itself</span>
+    <span class="k">return</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">"text/html"</span><span class="p">,</span> <span class="n">html</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></div>
+<h2>Processing POST requests</h2>
+<p>In similar fashion, to process a POST request, we simply have to define the do_POST method:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">PersistAnswers</span> <span class="o">&lt;</span> <span class="no">WEBrick</span><span class="o">::</span><span class="no">HTTPServlet</span><span class="o">::</span><span class="no">AbstractServlet</span>
+
+  <span class="k">def</span> <span class="nf">do_POST</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">response</span><span class="p">)</span>
+    <span class="n">status</span><span class="p">,</span> <span class="n">content_type</span><span class="p">,</span> <span class="n">body</span> <span class="o">=</span> <span class="n">save_answers</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+
+    <span class="n">response</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">status</span>
+    <span class="n">response</span><span class="o">[</span><span class="s1">'Content-Type'</span><span class="o">]</span> <span class="o">=</span> <span class="n">content_type</span>
+    <span class="n">response</span><span class="o">.</span><span class="n">body</span> <span class="o">=</span> <span class="n">body</span>
+  <span class="k">end</span>
+
+  <span class="c1"># Save POST request into a text file</span>
+  <span class="k">def</span> <span class="nf">save_answers</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="c1"># Check if the user provided a name</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">filename</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">query</span><span class="o">[</span><span class="s1">'first_name'</span><span class="o">]</span> <span class="p">)</span>
+      <span class="n">f</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">"save-</span><span class="si">#{</span><span class="n">filename</span><span class="si">}</span><span class="s2">.</span><span class="si">#{</span><span class="no">Time</span><span class="o">.</span><span class="n">now</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">'%H%M%S'</span><span class="p">)</span><span class="si">}</span><span class="s2">.txt"</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">)</span>
+
+      <span class="c1"># Iterate over every POST'ed value and persist it to file</span>
+      <span class="n">request</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">collect</span> <span class="p">{</span> <span class="o">|</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="o">|</span> <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"</span><span class="si">#{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">#{</span><span class="n">value</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span> <span class="p">}</span>
+      <span class="n">f</span><span class="o">.</span><span class="n">close</span>
+    <span class="k">end</span>
+
+    <span class="c1"># Return OK (200), content-type: text/plain, and a plain-text "Saved! Thank you." notice</span>
+    <span class="k">return</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">"text/plain"</span><span class="p">,</span> <span class="s2">"Saved! Thank you."</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></div>
+<div class="download"><a href="http://www.igvita.com/downloads/code/webrick-servlet.rb">webrick-servlet.rb</a> - Combined final code</div>
+<p> Believe it or not, that's it! You can extend this example to serve a
+ file, an entire directory, or even run a full-blown Rails application. 
+But with our basic setup, pointing your browser to <code>localhost:8000</code> should produce:</p>
+<blockquote><pre>[2007-02-13 15:15:21] INFO WEBrick 1.3.1
+[2007-02-13 15:15:21] INFO ruby 1.8.5 (2006-08-25) [i386-mswin32]
+[2007-02-13 15:15:21] INFO WEBrick::HTTPServer#start: pid=1224 port=8000
+localhost - - [13/Feb/2007:15:15:31 PST] "GET /questions HTTP/1.1" 200 56679
+- -&gt; /questions
+localhost - - [13/Feb/2007:15:15:36 PST] "POST /save HTTP/1.1" 200 17
+http://localhost:8000/questions -&gt; /save
+</pre></blockquote>
+<div class="author-callout">
+<img src="Dynamic%20WEBRick%20Servers%20in%20Ruby%20-%20igvita.com_files/35x35xigrigorik-small.jpg" alt="Ilya Grigorik" height="35px" width="35px"><strong>Ilya Grigorik</strong>
+ is a web performance engineer and developer advocate at Google, where 
+his focus is on making the web fast and driving adoption of performance 
+best practices — follow on <a href="https://twitter.com/igrigorik">Twitter</a>, <a href="https://plus.google.com/+IlyaGrigorik">Google+</a>.
+</div>
+<div class="content social">
+<a href="http://www.igvita.com/2007/02/13/building-dynamic-webrick-servers-in-ruby/#disqus_thread" onclick="return loadDisqus()">View comments (1)</a>, share on <a href="https://twitter.com/share?url=http://www.igvita.com/2007/02/13/building-dynamic-webrick-servers-in-ruby/&amp;text=Dynamic%20WEBRick%20Servers%20in%20Ruby:&amp;via=igrigorik" target="_blank">Twitter</a><span id="twittercount"></span>, <a href="https://plus.google.com/share?url=http://www.igvita.com/2007/02/13/building-dynamic-webrick-servers-in-ruby/" target="_blank">Google+</a><span id="gpluscount"></span><span id="fbcount"></span>.
+</div>
+</div>
+<div id="comments" class="content">
+<div id="disqus_thread"></div>
+</div>
+</div>
+<div id="meta">
+<div class="group book">
+<div class="book-cover" style="margin-top:0.2em"></div>
+<h3 style="color: #fff">High-Performance Browser Networking (O'Reilly)</h3>
+<p style="font-style:italic">What every web developer must know about 
+networking and browser performance: impact of latency and bandwidth, 
+TCP, UDP, and TLS optimization, performance tips for mobile networks, 
+and an under the hood look at performance of HTTP 1.1/2.0, 
+XMLHttpRequest, WebSocket, WebRTC, DataChannel, and other transports.</p>
+<p style="padding-top:0.5em"><a href="http://chimera.labs.oreilly.com/books/1230000000545?utm_source=igvita&amp;utm_medium=referral&amp;utm_campaign=igvita-footer" style="text-decoration:none;"><span class="button">Read Online for Free</span></a></p>
+</div>
+</div>
+<script>var disqus_url='http://www.igvita.com/2007/02/13/building-dynamic-webrick-servers-in-ruby/';var disqus_shortname='igvita';var loadDisqus=function(){var dsq=document.createElement('script');dsq.type='text/javascript';dsq.async=true;dsq.src='//igvita.disqus.com/embed.js';(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(dsq);return false;};function social_counts(data){var twc=document.getElementById('twittercount'),gwc=document.getElementById('gpluscount'),fwc=document.getElementById('fbcount');if(data['Twitter']>0){twc.innerText=' ('+data['Twitter']+')'}if(data['GooglePlusOne']>0){gwc.innerText=' ('+data['GooglePlusOne']+')'}if(data['Facebook']['total_count']>0){fwc.innerHTML=", <a href='https://www.facebook.com/sharer/sharer.php?u=http://www.igvita.com/2007/02/13/building-dynamic-webrick-servers-in-ruby/' target='_blank'>Facebook</a>"+' ('+data['Facebook']['total_count']+')';}}var scount=document.createElement('script');scount.src="//free.sharedcount.com/?callback=social_counts&url=http://www.igvita.com/2007/02/13/building-dynamic-webrick-servers-in-ruby/&apikey=3e1fc0ba6af5530d504d4cc95d73309978520066"
+document.getElementsByTagName('head')[0].appendChild(scount);</script>
+<script src="Dynamic%20WEBRick%20Servers%20in%20Ruby%20-%20igvita.com_files/count.js" async=""></script>
+<footer>
+<div id="copyright">
+<div class="group">
+<span>© 2005-2015 Ilya Grigorik</span>
+<a href="https://www.igvita.com/" class="about">about</a><a href="http://feeds.igvita.com/igvita" class="about rss">subscribe via rss</a>
+</div>
+</div>
+</footer>
+</div> <!-- end of #container -->
+<noscript class="psa_add_styles"><link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400,700"/><link rel="stylesheet" href="https://1-ps.googleusercontent.com/sk/bYSmB63yuhjL_l7bPRuu4R3ENi/www.igvita.com/css/A.style.css+monokai.css,Mcc.rZgnP9TgGYo9zp2Ysbfz.css.pagespeed.cf.VIb9PaOBtUEiS1W1pm4B.css"/></noscript><script pagespeed_no_defer="">(function(){function b(){var a=window,c=e;if(a.addEventListener)a.addEventListener("load",c,!1);else if(a.attachEvent)a.attachEvent("onload",c);else{var d=a.onload;a.onload=function(){c.call(this);d&&d.call(this)}}};var f=!1;function e(){if(!f){f=!0;for(var a=document.getElementsByClassName("psa_add_styles"),c=0,d;d=a[c];++c)if("NOSCRIPT"==d.nodeName){var k=document.createElement("div");k.innerHTML=d.textContent;document.body.appendChild(k)}}}function g(){var a=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||null;a?a(function(){window.setTimeout(e,0)}):b()}
+var h=["pagespeed","CriticalCssLoader","Run"],l=this;h[0]in l||!l.execScript||l.execScript("var "+h[0]);for(var m;h.length&&(m=h.shift());)h.length||void 0===g?l=l[m]?l[m]:l[m]={}:l[m]=g;})();
+pagespeed.CriticalCssLoader.Run();</script><script pagespeed_no_defer="">(function(){window.pagespeed=window.pagespeed||{};var l=window.pagespeed;
+l.getResourceTimingData=function(){if(window.performance&&(window.performance.getEntries||window.performance.webkitGetEntries)){for(var m=0,n=0,e=0,p=0,f=0,q=0,g=0,r=0,h=0,t=0,k=0,c={},d=window.performance.getEntries?window.performance.getEntries():window.performance.webkitGetEntries(),b=0;b<d.length;b++){var a=d[b].duration;0<a&&(m+=a,++e,n=Math.max(n,a));a=d[b].connectEnd-d[b].connectStart;0<a&&(q+=a,++g);a=d[b].domainLookupEnd-d[b].domainLookupStart;0<a&&(p+=a,++f);a=d[b].initiatorType;c[a]?++c[a]:
+c[a]=1;a=d[b].requestStart-d[b].fetchStart;0<a&&(t+=a,++k);a=d[b].responseStart-d[b].requestStart;0<a&&(r+=a,++h)}return"&afd="+(e?Math.round(m/e):0)+"&nfd="+e+"&mfd="+Math.round(n)+"&act="+(g?Math.round(q/g):0)+"&nct="+g+"&adt="+(f?Math.round(p/f):0)+"&ndt="+f+"&abt="+(k?Math.round(t/k):0)+"&nbt="+k+"&attfb="+(h?Math.round(r/h):0)+"&nttfb="+h+(c.css?"&rit_css="+c.css:"")+(c.link?"&rit_link="+c.link:"")+(c.script?"&rit_script="+c.script:"")+(c.img?"&rit_img="+c.img:"")}return""};
+l.getResourceTimingData=l.getResourceTimingData;})();
+(function(){window.pagespeed=window.pagespeed||{};var e=window.pagespeed;function g(a,c,b,d){this.d=a;this.a=c;this.b=b;this.e=d}e.beaconUrl="";
+g.prototype.sendBeacon=function(){var a=this.d,c=window.mod_pagespeed_start,b=Number(new Date)-c,a=a+(-1==a.indexOf("?")?"?":"&"),a=a+"ets="+("load"==this.a?"load:":"unload:"),a=a+b;if("beforeunload"!=this.a||!window.mod_pagespeed_loaded){a+="&r"+this.a+"=";if(window.performance){var b=window.performance.timing,d=b.navigationStart,f=b.requestStart,a=a+(b[this.a+"EventStart"]-d),a=a+("&nav="+(b.fetchStart-d)),a=a+("&dns="+(b.domainLookupEnd-b.domainLookupStart)),a=a+("&connect="+(b.connectEnd-b.connectStart)),
+a=a+("&req_start="+(f-d)),a=a+("&ttfb="+(b.responseStart-f)),a=a+("&dwld="+(b.responseEnd-b.responseStart)),a=a+("&dom_c="+(b.domContentLoadedEventStart-d));window.performance.navigation&&(a+="&nt="+window.performance.navigation.type);d=-1;b.msFirstPaint?d=b.msFirstPaint:window.chrome&&window.chrome.loadTimes&&(d=Math.floor(1E3*window.chrome.loadTimes().firstPaintTime));d-=f;0<=d&&(a+="&fp="+d)}else a+=b;e.getResourceTimingData&&window.parent==window&&(a+=e.getResourceTimingData());a+=window.parent!=
+window?"&ifr=1":"&ifr=0";"load"==this.a&&(window.mod_pagespeed_loaded=!0,(b=window.mod_pagespeed_num_resources_prefetched)&&(a+="&nrp="+b),(b=window.mod_pagespeed_prefetch_start)&&(a+="&htmlAt="+(c-b)));e.panelLoader&&(c=e.panelLoader.getCsiTimingsString(),""!=c&&(a+="&b_csi="+c));e.criticalCss&&(c=e.criticalCss,a+="&ccis="+c.total_critical_inlined_size+"&cces="+c.total_original_external_size+"&ccos="+c.total_overhead_size+"&ccrl="+c.num_replaced_links+"&ccul="+c.num_unreplaced_links);""!=this.b&&
+(a+=this.b);document.referrer&&(a+="&ref="+encodeURIComponent(document.referrer));a+="&url="+encodeURIComponent(this.e);e.beaconUrl=a;(new Image).src=a}};e.c=function(a,c,b,d){var f=new g(a,c,b,d);window.addEventListener?window.addEventListener(c,function(){f.sendBeacon()},!1):window.attachEvent("on"+c,function(){f.sendBeacon()})};e.addInstrumentationInit=e.c;})();
+
+pagespeed.addInstrumentationInit('https://1-ps.googleusercontent.com/beacon?org=131_1_vo', 'load', '&s_ttfb=262&id=1427683661267821', 'https://www.igvita.com/2007/02/13/building-dynamic-webrick-servers-in-ruby/');</script>
+
+<div><link rel="stylesheet" href="Dynamic%20WEBRick%20Servers%20in%20Ruby%20-%20igvita.com_files/css.css"><link rel="stylesheet" href="Dynamic%20WEBRick%20Servers%20in%20Ruby%20-%20igvita.com_files/A.css"></div><mytubeelement data="{&quot;bundle&quot;:{&quot;label_delimitor&quot;:&quot;:&quot;,&quot;percentage&quot;:&quot;%&quot;,&quot;smart_buffer&quot;:&quot;Smart Buffer&quot;,&quot;start_playing_when_buffered&quot;:&quot;Start playing when buffered&quot;,&quot;sound&quot;:&quot;Sound&quot;,&quot;desktop_notification&quot;:&quot;Desktop Notification&quot;,&quot;continuation_on_next_line&quot;:&quot;-&quot;,&quot;loop&quot;:&quot;Loop&quot;,&quot;only_notify&quot;:&quot;Only Notify&quot;,&quot;estimated_time&quot;:&quot;Estimated Time&quot;,&quot;global_preferences&quot;:&quot;Global Preferences&quot;,&quot;no_notification_supported_on_your_browser&quot;:&quot;No notification style supported on your browser version&quot;,&quot;video_buffered&quot;:&quot;Video Buffered&quot;,&quot;buffered&quot;:&quot;Buffered&quot;,&quot;hyphen&quot;:&quot;-&quot;,&quot;buffered_message&quot;:&quot;The video has been buffered as requested and is ready to play.&quot;,&quot;not_supported&quot;:&quot;Not Supported&quot;,&quot;on&quot;:&quot;On&quot;,&quot;off&quot;:&quot;Off&quot;,&quot;click_to_enable_for_this_site&quot;:&quot;Click to enable for this site&quot;,&quot;desktop_notification_denied&quot;:&quot;You have denied permission for desktop notification for this site&quot;,&quot;notification_status_delimitor&quot;:&quot;;&quot;,&quot;error&quot;:&quot;Error&quot;,&quot;adblock_interferance_message&quot;:&quot;Adblock (or similar extension) is known to interfere with SmartVideo. Please add this url to adblock whitelist.&quot;,&quot;calculating&quot;:&quot;Calculating&quot;,&quot;waiting&quot;:&quot;Waiting&quot;,&quot;will_start_buffering_when_initialized&quot;:&quot;Will start buffering when initialized&quot;,&quot;will_start_playing_when_initialized&quot;:&quot;Will start playing when initialized&quot;,&quot;completed&quot;:&quot;Completed&quot;,&quot;buffering_stalled&quot;:&quot;Buffering is stalled. Will stop.&quot;,&quot;stopped&quot;:&quot;Stopped&quot;,&quot;hr&quot;:&quot;Hr&quot;,&quot;min&quot;:&quot;Min&quot;,&quot;sec&quot;:&quot;Sec&quot;,&quot;any_moment&quot;:&quot;Any Moment&quot;,&quot;popup_donate_to&quot;:&quot;Donate to&quot;,&quot;extension_id&quot;:null},&quot;prefs&quot;:{&quot;desktopNotification&quot;:true,&quot;soundNotification&quot;:true,&quot;logLevel&quot;:0,&quot;enable&quot;:true,&quot;loop&quot;:false,&quot;hidePopup&quot;:false,&quot;autoPlay&quot;:false,&quot;autoBuffer&quot;:false,&quot;autoPlayOnBuffer&quot;:false,&quot;autoPlayOnBufferPercentage&quot;:42,&quot;autoPlayOnSmartBuffer&quot;:true,&quot;quality&quot;:&quot;default&quot;,&quot;fshd&quot;:false,&quot;onlyNotification&quot;:false,&quot;enableFullScreen&quot;:true,&quot;saveBandwidth&quot;:false,&quot;hideAnnotations&quot;:false,&quot;turnOffPagedBuffering&quot;:false}}" event="preferencesUpdated" id="myTubeRelayElementToPage"></mytubeelement><mytubeelement data="{&quot;loadBundle&quot;:true}" event="relayPrefs" id="myTubeRelayElementToTab"></mytubeelement></body></html>

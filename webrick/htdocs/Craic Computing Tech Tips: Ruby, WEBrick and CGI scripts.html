@@ -1,0 +1,1567 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" xmlns:b="http://www.google.com/2005/gml/b" xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.com/2005/gml/expr"><head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<script async="" src="Craic%20Computing%20Tech%20Tips:%20Ruby,%20WEBrick%20and%20CGI%20scripts_files/cbgapi.loaded_3"></script><script async="" src="Craic%20Computing%20Tech%20Tips:%20Ruby,%20WEBrick%20and%20CGI%20scripts_files/cbgapi.loaded_2"></script><script async="" src="Craic%20Computing%20Tech%20Tips:%20Ruby,%20WEBrick%20and%20CGI%20scripts_files/cbgapi.loaded_1"></script><script async="" src="Craic%20Computing%20Tech%20Tips:%20Ruby,%20WEBrick%20and%20CGI%20scripts_files/cbgapi.loaded_0"></script><script type="text/javascript">(function() { var b=window,f="chrome",g="tick",k="jstiming";(function(){function d(a){this.t={};this.tick=function(a,d,c){var e=void 0!=c?c:(new Date).getTime();this.t[a]=[e,d];if(void 0==c)try{b.console.timeStamp("CSI/"+a)}catch(h){}};this[g]("start",null,a)}var a;b.performance&&(a=b.performance.timing);var n=a?new d(a.responseStart):new d;b.jstiming={Timer:d,load:n};if(a){var c=a.navigationStart,h=a.responseStart;0<c&&h>=c&&(b[k].srt=h-c)}if(a){var e=b[k].load;0<c&&h>=c&&(e[g]("_wtsrt",void 0,c),e[g]("wtsrt_","_wtsrt",h),e[g]("tbsd_","wtsrt_"))}try{a=null,
+b[f]&&b[f].csi&&(a=Math.floor(b[f].csi().pageT),e&&0<c&&(e[g]("_tbnd",void 0,b[f].csi().startE),e[g]("tbnd_","_tbnd",c))),null==a&&b.gtbExternal&&(a=b.gtbExternal.pageT()),null==a&&b.external&&(a=b.external.pageT,e&&0<c&&(e[g]("_tbnd",void 0,b.external.startE),e[g]("tbnd_","_tbnd",c))),a&&(b[k].pt=a)}catch(p){}})();b.tickAboveFold=function(d){var a=0;if(d.offsetParent){do a+=d.offsetTop;while(d=d.offsetParent)}d=a;750>=d&&b[k].load[g]("aft")};var l=!1;function m(){l||(l=!0,b[k].load[g]("firstScrollTime"))}b.addEventListener?b.addEventListener("scroll",m,!1):b.attachEvent("onscroll",m);
+ })();</script>
+<meta content="blogger" name="generator">
+<link href="http://craiccomputing.blogspot.com/favicon.ico" rel="icon" type="image/x-icon">
+<link href="http://craiccomputing.blogspot.com/2008/03/ruby-webrick-and-cgi-scripts.html" rel="canonical">
+<link rel="alternate" type="application/atom+xml" title="Craic Computing Tech Tips - Atom" href="http://craiccomputing.blogspot.com/feeds/posts/default">
+<link rel="alternate" type="application/rss+xml" title="Craic Computing Tech Tips - RSS" href="http://craiccomputing.blogspot.com/feeds/posts/default?alt=rss">
+<link rel="service.post" type="application/atom+xml" title="Craic Computing Tech Tips - Atom" href="http://www.blogger.com/feeds/7975027231082637331/posts/default">
+
+<link rel="alternate" type="application/atom+xml" title="Craic Computing Tech Tips - Atom" href="http://craiccomputing.blogspot.com/feeds/621006380926253540/comments/default">
+<!--[if IE]> <script> (function() { var html5 = ("abbr,article,aside,audio,canvas,datalist,details," + "figure,footer,header,hgroup,mark,menu,meter,nav,output," + "progress,section,time,video").split(','); for (var i = 0; i < html5.length; i++) { document.createElement(html5[i]); } try { document.execCommand('BackgroundImageCache', false, true); } catch(e) {} })(); </script> <![endif]-->
+<title>Craic Computing Tech Tips: Ruby, WEBrick and CGI scripts</title>
+<link type="text/css" rel="stylesheet" href="Craic%20Computing%20Tech%20Tips:%20Ruby,%20WEBrick%20and%20CGI%20scripts_files/728935430-widget_css_bundle.css">
+<link type="text/css" rel="stylesheet" href="Craic%20Computing%20Tech%20Tips:%20Ruby,%20WEBrick%20and%20CGI%20scripts_files/authorization.css">
+<style id="page-skin-1" type="text/css"><!--
+/*
+* Blogger Template Style
+*
+* Simple II
+* by Jason Sutter
+*/
+/* Variable definitions
+====================
+<Variable name="bgcolor" description="Page Background Color"
+type="color" default="#fff">
+<Variable name="textcolor" description="Text Color"
+type="color" default="#000">
+<Variable name="pagetitlecolor" description="Blog Title Color"
+type="color" default="#000">
+<Variable name="titlecolor" description="Post Title Color"
+type="color" default="#000">
+<Variable name="footercolor" description="Date and Footer Color"
+type="color" default="#555">
+<Variable name="linkcolor" description="Link Color"
+type="color" default="#58a">
+<Variable name="visitedlinkcolor" description="Visited Link Color"
+type="color" default="#999"> Used to be #969
+<Variable name="bordercolor" description="Border Color"
+type="color" default="#999">
+<Variable name="bodyfont" description="Text Font"
+type="font" default="normal normal 100% Georgia,Serif;">
+<Variable name="pagetitlefont" description="Blog Title Font"
+type="font"
+default="normal bold 200% Georgia,Serif">
+<Variable name="startSide" description="Start side in blog language"
+type="automatic" default="left">
+<Variable name="endSide" description="End side in blog language"
+type="automatic" default="right">
+*/
+body {
+margin:0;
+font:normal normal 100% Georgia,Serif;;
+background:#ffffff;
+color:#000000;
+}
+a:link {
+color:#5588aa;
+text-decoration:none;
+}
+a:visited {
+color:#999999;
+text-decoration:none;
+}
+a:hover {
+color:#000000;
+text-decoration:underline;
+}
+a img {
+border-width:0;
+}
+#outer-wrapper {
+margin-top: 0px;
+margin-right: 3em;
+margin-bottom: 0;
+margin-left: 3em;
+}
+h1 {
+border-bottom:dotted 1px #999999;
+margin-bottom:0px;
+color: #000000;
+font: normal bold 200% Georgia,Serif;
+}
+h1 a, h1 a:link, h1 a:visited {
+color: #000000;
+}
+h2 {
+margin:0px;
+padding: 0px;
+}
+#main .widget {
+padding-bottom:10px;
+margin-bottom:20px;
+border-bottom:dotted 1px #999999;
+clear: both;
+}
+#main .Header {
+border-bottom-width: 0px;
+}
+h2.date-header {
+padding-top:15px;
+color:#555555;
+padding-bottom:0px;
+margin-bottom:0px;
+font-size: 90%;
+}
+h3.post-title {
+font-size: 140%;
+color: #000000;
+}
+.post {
+padding-left:5%;
+padding-right:10%;
+}
+.post-footer {
+color:#555555;
+}
+#comments {
+padding-top:30px;
+color:#000000;
+padding-bottom:0px;
+margin-bottom:0px;
+font-weight:bold;
+}
+#comments .comment-footer {
+font-size:1em;
+font-weight:normal;
+color:#555555;
+margin-right:10px;
+display:inline;
+}
+.comment-author {
+margin-top: 3%;
+}
+.comment-body {
+font-size:1em;
+font-weight:normal;
+}
+.deleted-comment {
+font-style:italic;
+color:gray;
+}
+.comment-link {
+margin-left:.6em;
+}
+.feed-links {
+clear: both;
+line-height: 2.5em;
+}
+#blog-pager-newer-link {
+float: left;
+}
+#blog-pager-older-link {
+float: right;
+}
+#blog-pager {
+text-align: center;
+}
+.clear {
+clear: both;
+}
+.profile-img {
+float: left;
+margin-top: 0;
+margin-right: 5px;
+margin-bottom: 5px;
+margin-left: 0;
+}
+body#layout #outer-wrapper {
+margin-top: 0px;
+margin-right: 50px;
+margin-bottom: 0;
+margin-left: 50px;
+}
+
+--></style>
+<link href="Craic%20Computing%20Tech%20Tips:%20Ruby,%20WEBrick%20and%20CGI%20scripts_files/prettify.css" rel="stylesheet" type="text/css">
+<script src="Craic%20Computing%20Tech%20Tips:%20Ruby,%20WEBrick%20and%20CGI%20scripts_files/prettify.js" type="text/javascript"></script><link type="text/css" rel="stylesheet" href="Craic%20Computing%20Tech%20Tips:%20Ruby,%20WEBrick%20and%20CGI%20scripts_files/mytube.css"><script src="Craic%20Computing%20Tech%20Tips:%20Ruby,%20WEBrick%20and%20CGI%20scripts_files/mutationObserver.js"></script><script src="Craic%20Computing%20Tech%20Tips:%20Ruby,%20WEBrick%20and%20CGI%20scripts_files/mytube.js"></script><mytubeelement data="{&quot;bundle&quot;:{&quot;label_delimitor&quot;:&quot;:&quot;,&quot;percentage&quot;:&quot;%&quot;,&quot;smart_buffer&quot;:&quot;Smart Buffer&quot;,&quot;start_playing_when_buffered&quot;:&quot;Start playing when buffered&quot;,&quot;sound&quot;:&quot;Sound&quot;,&quot;desktop_notification&quot;:&quot;Desktop Notification&quot;,&quot;continuation_on_next_line&quot;:&quot;-&quot;,&quot;loop&quot;:&quot;Loop&quot;,&quot;only_notify&quot;:&quot;Only Notify&quot;,&quot;estimated_time&quot;:&quot;Estimated Time&quot;,&quot;global_preferences&quot;:&quot;Global Preferences&quot;,&quot;no_notification_supported_on_your_browser&quot;:&quot;No notification style supported on your browser version&quot;,&quot;video_buffered&quot;:&quot;Video Buffered&quot;,&quot;buffered&quot;:&quot;Buffered&quot;,&quot;hyphen&quot;:&quot;-&quot;,&quot;buffered_message&quot;:&quot;The video has been buffered as requested and is ready to play.&quot;,&quot;not_supported&quot;:&quot;Not Supported&quot;,&quot;on&quot;:&quot;On&quot;,&quot;off&quot;:&quot;Off&quot;,&quot;click_to_enable_for_this_site&quot;:&quot;Click to enable for this site&quot;,&quot;desktop_notification_denied&quot;:&quot;You have denied permission for desktop notification for this site&quot;,&quot;notification_status_delimitor&quot;:&quot;;&quot;,&quot;error&quot;:&quot;Error&quot;,&quot;adblock_interferance_message&quot;:&quot;Adblock (or similar extension) is known to interfere with SmartVideo. Please add this url to adblock whitelist.&quot;,&quot;calculating&quot;:&quot;Calculating&quot;,&quot;waiting&quot;:&quot;Waiting&quot;,&quot;will_start_buffering_when_initialized&quot;:&quot;Will start buffering when initialized&quot;,&quot;will_start_playing_when_initialized&quot;:&quot;Will start playing when initialized&quot;,&quot;completed&quot;:&quot;Completed&quot;,&quot;buffering_stalled&quot;:&quot;Buffering is stalled. Will stop.&quot;,&quot;stopped&quot;:&quot;Stopped&quot;,&quot;hr&quot;:&quot;Hr&quot;,&quot;min&quot;:&quot;Min&quot;,&quot;sec&quot;:&quot;Sec&quot;,&quot;any_moment&quot;:&quot;Any Moment&quot;,&quot;popup_donate_to&quot;:&quot;Donate to&quot;,&quot;extension_id&quot;:null},&quot;prefs&quot;:{&quot;desktopNotification&quot;:true,&quot;soundNotification&quot;:true,&quot;logLevel&quot;:0,&quot;enable&quot;:true,&quot;loop&quot;:false,&quot;hidePopup&quot;:false,&quot;autoPlay&quot;:false,&quot;autoBuffer&quot;:false,&quot;autoPlayOnBuffer&quot;:false,&quot;autoPlayOnBufferPercentage&quot;:42,&quot;autoPlayOnSmartBuffer&quot;:true,&quot;quality&quot;:&quot;default&quot;,&quot;fshd&quot;:false,&quot;onlyNotification&quot;:false,&quot;enableFullScreen&quot;:true,&quot;saveBandwidth&quot;:false,&quot;hideAnnotations&quot;:false,&quot;turnOffPagedBuffering&quot;:false}}" event="preferencesUpdated" id="myTubeRelayElementToPage"></mytubeelement><mytubeelement data="{&quot;loadBundle&quot;:true}" event="relayPrefs" id="myTubeRelayElementToTab"></mytubeelement>
+<script type="text/javascript">var a="indexOf",b="&m=1",e="(^|&)m=",f="?",g="?m=1";function h(){var c=window.location.href,d=c.split(f);switch(d.length){case 1:return c+g;case 2:return 0<=d[1].search(e)?null:c+b;default:return null}}var k=navigator.userAgent;if(-1!=k[a]("Mobile")&&-1!=k[a]("WebKit")&&-1==k[a]("iPad")||-1!=k[a]("Opera Mini")||-1!=k[a]("IEMobile")){var l=h();l&&window.location.replace(l)};
+</script><script type="text/javascript">
+if (window.jstiming) window.jstiming.load.tick('headEnd');
+</script><script src="Craic%20Computing%20Tech%20Tips:%20Ruby,%20WEBrick%20and%20CGI%20scripts_files/google_top_exp.js" type="text/javascript"></script><style>.gc-bubbleDefault{background-color:transparent !important;text-align:left;padding:0 !important;margin:0 !important;border:0 !important;table-layout:auto !important}.gc-reset{background-color:transparent !important;border:0 !important;padding:0 !important;margin:0 !important;text-align:left}.pls-bubbleTop{border-bottom:1px solid #ccc !important}.pls-topTail,.pls-vertShimLeft,.pls-contentLeft{background-image:url(//ssl.gstatic.com/s2/oz/images/stars/po/bubblev1/border_3.gif) !important}.pls-topTail{background-repeat:repeat-x !important;background-position:bottom !important}.pls-vertShim{background-color:#fff !important;text-align:right}.tbl-grey .pls-vertShim{background-color:#f5f5f5 !important}.pls-vertShimLeft{background-repeat:repeat-y !important;background-position:right !important;height:4px}.pls-vertShimRight{height:4px}.pls-confirm-container .pls-vertShim{background-color:#fff3c2 !important}.pls-contentWrap{background-color:#fff !important;position:relative !important;vertical-align:top}.pls-contentLeft{background-repeat:repeat-y;background-position:right;vertical-align:top}.pls-dropRight{background-image:url(//ssl.gstatic.com/s2/oz/images/stars/po/bubblev1/bubbleDropR_3.png) !important;background-repeat:repeat-y !important;vertical-align:top}.pls-vert,.pls-tailleft,.pls-dropTR .pls-dropBR,.pls-dropBL,.pls-vert img{vertical-align:top}.pls-dropBottom{background-image:url(//ssl.gstatic.com/s2/oz/images/stars/po/bubblev1/bubbleDropB_3.png) !important;background-repeat:repeat-x !important;width:100%;vertical-align:top}.pls-topLeft{background:inherit !important;text-align:right;vertical-align:bottom}.pls-topRight{background:inherit !important;text-align:left;vertical-align:bottom}.pls-bottomLeft{background:inherit !important;text-align:right}.pls-bottomRight{background:inherit !important;text-align:left;vertical-align:top}.pls-tailtop,.pls-tailright,.pls-tailbottom,.pls-tailleft{display:none;position:relative}.pls-tailbottom,.pls-tailtop,.pls-tailright,.pls-tailleft,.pls-dropTR,.pls-dropBR,.pls-dropBL{background-image:url(//ssl.gstatic.com/s2/oz/images/stars/po/bubblev1/bubbleSprite_3.png) !important;background-repeat:no-repeat}.tbl-grey .pls-tailbottom,.tbl-grey .pls-tailtop,.tbl-grey .pls-tailright,.tbl-grey .pls-tailleft,.tbl-grey .pls-dropTR,.tbl-grey .pls-dropBR,.tbl-grey .pls-dropBL{background-image:url(//ssl.gstatic.com/s2/oz/images/stars/po/bubblev1/bubbleSprite-grey.png) !important}.pls-tailbottom{background-position:-23px 0}.pls-confirm-container .pls-tailbottom{background-position:-23px -10px}.pls-tailtop{background-position:-19px -20px}.pls-tailright{background-position:0 0}.pls-tailleft{background-position:-10px 0}.pls-tailtop{vertical-align:top}.gc-bubbleDefault td{line-height:0;font-size:0}.pls-topLeft img,.pls-topRight img,.pls-tailbottom{vertical-align:bottom}.pls-bottomLeft img,.bubbleDropTR,.pls-dropBottomL img,.pls-dropBottom img,.pls-dropBottomR img,.pls-bottomLeft{vertical-align:top}.pls-dropTR{background-position:0 -22px}.pls-dropBR{background-position:0 -27px}.pls-dropBL{background-position:0 -16px}.pls-spacertop,.pls-spacerright,.pls-spacerbottom,.pls-spacerleft{position:static !important}.pls-spinner{bottom:0;position:absolute;left:0;margin:auto;right:0;top:0}</style></head>
+<body onload="prettyPrint()">
+<div class="navbar section" id="navbar"><div class="widget Navbar" id="Navbar1"><script type="text/javascript">
+    function setAttributeOnload(object, attribute, val) {
+      if(window.addEventListener) {
+        window.addEventListener('load',
+          function(){ object[attribute] = val; }, false);
+      } else {
+        window.attachEvent('onload', function(){ object[attribute] = val; });
+      }
+    }
+  </script>
+<div id="navbar-iframe-container"><iframe mytubeid="mytube1" src="Craic%20Computing%20Tech%20Tips:%20Ruby,%20WEBrick%20and%20CGI%20scripts_files/navbar.html" name="navbar-iframe" id="navbar-iframe" vspace="0" tabindex="0" style="" scrolling="no" marginwidth="0" marginheight="0" hspace="0" frameborder="0" width="100%"></iframe></div>
+<script gapi_processed="true" type="text/javascript" src="Craic%20Computing%20Tech%20Tips:%20Ruby,%20WEBrick%20and%20CGI%20scripts_files/plusone.js"></script>
+<script type="text/javascript">
+        gapi.load("gapi.iframes:gapi.iframes.style.bubble", function() {
+          if (gapi.iframes && gapi.iframes.getContext) {
+            gapi.iframes.getContext().openChild({
+                url: 'https://www.blogger.com/navbar.g?targetBlogID\0757975027231082637331\46blogName\75Craic+Computing+Tech+Tips\46publishMode\75PUBLISH_MODE_BLOGSPOT\46navbarType\75LIGHT\46layoutType\75LAYOUTS\46searchRoot\75http://craiccomputing.blogspot.com/search\46blogLocale\75en\46v\0752\46homepageUrl\75http://craiccomputing.blogspot.com/\46targetPostID\075621006380926253540\46blogPostOrPageUrl\75http://craiccomputing.blogspot.com/2008/03/ruby-webrick-and-cgi-scripts.html\46vt\75-2997583364239601759',
+                where: document.getElementById("navbar-iframe-container"),
+                id: "navbar-iframe"
+            });
+          }
+        });
+      </script><script type="text/javascript">
+(function() {
+var script = document.createElement('script');
+script.type = 'text/javascript';
+script.src = '//pagead2.googlesyndication.com/pagead/js/google_top_exp.js';
+var head = document.getElementsByTagName('head')[0];
+if (head) {
+head.appendChild(script);
+}})();
+</script>
+</div></div>
+<div id="outer-wrapper">
+<div class="main section" id="main"><div class="widget Header" id="Header1">
+<div id="header-inner">
+<div class="titlewrapper">
+<h1 class="title">
+<a href="http://craiccomputing.blogspot.com/">Craic Computing Tech Tips</a>
+</h1>
+</div>
+<div class="descriptionwrapper">
+<p class="description"><span>A collection of computer systems and programming tips that you may find useful.
+<br>&nbsp;<br>
+Brought to you by <a href="http://www.craic.com/">Craic Computing LLC</a>, a bioinformatics consulting company.</span></p>
+</div>
+</div>
+</div><div class="widget Blog" id="Blog1">
+<div class="blog-posts hfeed">
+<!-- google_ad_section_start(name=default) -->
+
+          <div class="date-outer">
+        
+<h2 class="date-header"><span>Friday, March 7, 2008</span></h2>
+
+          <div class="date-posts">
+        
+<div class="post-outer">
+<div class="post hentry uncustomized-post-template" itemprop="blogPost" itemscope="itemscope" itemtype="http://schema.org/BlogPosting">
+<meta content="7975027231082637331" itemprop="blogId">
+<meta content="621006380926253540" itemprop="postId">
+<a name="621006380926253540"></a>
+<h3 class="post-title entry-title" itemprop="name">
+Ruby, WEBrick and CGI scripts
+</h3>
+<div class="post-header">
+<div class="post-header-line-1"></div>
+</div>
+<div class="post-body entry-content" id="post-body-621006380926253540" itemprop="description articleBody">
+Ruby on Rails is the obvious choice when you want to create a web 
+application using Ruby. But this can be overkill for some projects where
+ a regular CGI script would do the job.<br><br>Unfortunately the focus 
+on Rails has led to CGI scripts being somewhat neglected in Ruby 
+documentation. Here are the steps you need to get a basic CGI script up 
+and running and the wrinkle you <span style="font-style: italic;">need</span> to know about if you want to upload files.<br><br>1: Setting up a test web server using WEBrick<br>Ruby
+ comes bundled with the WEBrick web server library and this allows you 
+to create a basic server on your local machine for testing. Startup a 
+server with this simple script:<br><code><pre>#!/usr/bin/env ruby<br>require 'webrick'<br>include WEBrick<br>s = HTTPServer.new(<br>    :Port =&gt; 3000,<br>    :DocumentRoot =&gt; File.join(Dir.pwd, "/html")<br>)<br>trap("INT") { s.shutdown }<br>s.start</pre></code><br>This
+ will start a server at 'http://localhost:3000' that will respond to 
+requests for files in the 'html' subdirectory of your project.<br>Put 
+that into a file called, for example 'webrick.rb', 'chmod a+x 
+webrick.rb' to make it executable and run it from your project top level
+ directory.<br><br>WEBrick can be used in various ways, such as to serve
+ up Java like servlets. BUt this simple configuration allows you to 
+serve static content and CGI scripts from the given directory with no 
+other configuration required. Great for testing, but use Apache or 
+something else substantial for hosting real sites.<br><br>2: Create a CGI script<br>For WEBrick to recognize your scripts, with this minimal configuration, you MUST give them the suffix '.cgi'<br>Here is a minimal script that will return the value for parameter 'foo' as supplied in a corresponding form. <br><code><pre>#!/usr/bin/env ruby<br>require 'cgi'<br>cgi = CGI.new<br>foo = cgi['foo']<br>print "Content-type: text/plain\n\n" <br>print "foo: #{foo}\n"</pre></code><br>The
+ CGI object contains a hash of the parameters passed to it and with 
+either a GET or POST request you can access these as shown above.<br><br>Things
+ get more complicated when you want to upload a file from your form. In 
+this case you specify enctype="multipart/form-data" on your html form, 
+telling the CGI script that you are including a file among the 
+parameters. BUT, with Ruby CGI, that affects the way you access other 
+regular parameters that are included in the form.<br><br>You can no 
+longer access their values by a direct hash lookup. cgi['foo'] no longer
+ returns a string, instead it returns a StringIO object. StringIO wraps 
+the IO class around the string so that you can use IO methods on it. 
+This is great for handling the contents of the file that you want to 
+upload but it makes handling regular arguments totally confusing until 
+you realize the trick. Instead of accessing cgi['foo'] you now need to 
+'read' that StringIO stream and use cgi['foo'].read. The equivalent 
+script as above for handling multipart data, and echoing the contents of
+ an uploaded file is:<br><code><pre>#!/usr/bin/env ruby<br>require 'cgi'<br>cgi = CGI.new<br>foo = cgi['foo']<br>print "Content-type: text/plain\n\n" <br>print "foo: #{foo}\n"<br>print "foo.read: #{foo.read}\n"<br>print cgi['filename'].read</pre></code><br>The incorrect direct use of cgi['foo'] will print a reference to a StringIO object.<br><br>You can test these out with this static HTML form:<br><code><pre>&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;<br>&lt;p&gt;Two example HTML forms for testing Ruby CGI scripts&lt;/p&gt;<br>&lt;hr&gt;<br>Form with (method="post")<br>&lt;form action="ruby_cgi_post.cgi" method="post"&gt;<br>Enter Value: &lt;input type="text" name="foo"&gt;&lt;br/&gt;<br>&lt;input type="submit"&gt;<br>&lt;/form&gt;<br>&lt;br/&gt;<br>&lt;hr&gt;<br>Form with (method="post" enctype="multipart/form-data") <br>&lt;form action="ruby_cgi_post_multipart.cgi" method="post" enctype="multipart/form-data"&gt;<br>Enter Value: &lt;input type="text" name="foo"&gt;&lt;br/&gt;<br>Choose File: &lt;input type="file" name="filename"&gt;&lt;br/&gt;<br>&lt;input type="submit"&gt;<br>&lt;/form&gt;<br>&lt;/body&gt;&lt;/html&gt;</pre></code>
+<div style="clear: both;"></div>
+</div>
+<div class="post-footer">
+<div class="post-footer-line post-footer-line-1">
+<span class="post-author vcard">
+Posted by
+<span class="fn" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person">
+<meta content="http://www.blogger.com/profile/13582954721486542844" itemprop="url">
+<a data-gapiattached="true" data-onload="true" data-gapiscan="true" class="g-profile" href="http://www.blogger.com/profile/13582954721486542844" rel="author" title="author profile">
+<span itemprop="name">Robert Jones</span>
+</a>
+</span>
+</span>
+<span class="post-timestamp">
+at
+<meta content="http://craiccomputing.blogspot.com/2008/03/ruby-webrick-and-cgi-scripts.html" itemprop="url">
+<a class="timestamp-link" href="http://craiccomputing.blogspot.com/2008/03/ruby-webrick-and-cgi-scripts.html" rel="bookmark" title="permanent link"><abbr class="published" itemprop="datePublished" title="2008-03-07T09:46:00-08:00">9:46 AM</abbr></a>
+</span>
+<span class="reaction-buttons">
+</span>
+<span class="post-comment-link">
+</span>
+<span class="post-backlinks post-comment-link">
+</span>
+<span class="post-icons">
+<span class="item-action">
+<a href="http://www.blogger.com/email-post.g?blogID=7975027231082637331&amp;postID=621006380926253540" title="Email Post">
+<img alt="" class="icon-action" src="Craic%20Computing%20Tech%20Tips:%20Ruby,%20WEBrick%20and%20CGI%20scripts_files/icon18_email.gif" height="13" width="18">
+</a>
+</span>
+<span class="item-control blog-admin pid-2015607251">
+<a href="http://www.blogger.com/post-edit.g?blogID=7975027231082637331&amp;postID=621006380926253540&amp;from=pencil" title="Edit Post">
+<img alt="" class="icon-action" src="Craic%20Computing%20Tech%20Tips:%20Ruby,%20WEBrick%20and%20CGI%20scripts_files/icon18_edit_allbkg.gif" height="18" width="18">
+</a>
+</span>
+</span>
+<div class="post-share-buttons goog-inline-block">
+</div>
+</div>
+<div class="post-footer-line post-footer-line-2">
+<span class="post-labels">
+</span>
+</div>
+<div class="post-footer-line post-footer-line-3">
+<span class="post-location">
+</span>
+</div>
+</div>
+</div>
+<div class="comments" id="comments">
+<a name="comments"></a>
+<h4>1 comment:</h4>
+<div id="Blog1_comments-block-wrapper">
+<dl class="avatar-comment-indent" id="comments-block">
+<dt class="comment-author " id="c5723111430196846709">
+<a name="c5723111430196846709"></a>
+<div class="avatar-image-container avatar-stock"><span dir="ltr"><a href="http://www.blogger.com/profile/13261858789335650193" rel="nofollow" onclick="" class="avatar-hovercard" id="av-0-13261858789335650193"><img src="Craic%20Computing%20Tech%20Tips:%20Ruby,%20WEBrick%20and%20CGI%20scripts_files/b16-rounded.gif" alt="" title="shane" height="16" width="16">
+
+</a></span></div>
+<a href="http://www.blogger.com/profile/13261858789335650193" rel="nofollow">shane</a>
+said...
+</dt>
+<dd class="comment-body" id="Blog1_cmt-5723111430196846709">
+<p>
+Very helpful - thanks for the quickstart -
+</p>
+</dd>
+<dd class="comment-footer">
+<span class="comment-timestamp">
+<a href="http://craiccomputing.blogspot.com/2008/03/ruby-webrick-and-cgi-scripts.html?showComment=1232600280000#c5723111430196846709" title="comment permalink">
+January 21, 2009 at 8:58 PM
+</a>
+<span class="item-control blog-admin pid-92783733">
+<a class="comment-delete" href="http://www.blogger.com/delete-comment.g?blogID=7975027231082637331&amp;postID=5723111430196846709" title="Delete Comment">
+<img src="Craic%20Computing%20Tech%20Tips:%20Ruby,%20WEBrick%20and%20CGI%20scripts_files/icon_delete13.gif">
+</a>
+</span>
+</span>
+</dd>
+</dl>
+</div>
+<p class="comment-footer">
+<a href="http://www.blogger.com/comment.g?blogID=7975027231082637331&amp;postID=621006380926253540" onclick="">Post a Comment</a>
+</p>
+<div id="backlinks-container">
+<div id="Blog1_backlinks-container">
+</div>
+</div>
+</div>
+</div>
+
+        </div></div>
+      
+<!-- google_ad_section_end -->
+</div>
+<div class="blog-pager" id="blog-pager">
+<span id="blog-pager-newer-link">
+<a class="blog-pager-newer-link" href="http://craiccomputing.blogspot.com/2008/03/ruby-activerecord-and-postgresql.html" id="Blog1_blog-pager-newer-link" title="Newer Post">Newer Post</a>
+</span>
+<span id="blog-pager-older-link">
+<a class="blog-pager-older-link" href="http://craiccomputing.blogspot.com/2008/02/mongrel-cluster-on-mac-os-x.html" id="Blog1_blog-pager-older-link" title="Older Post">Older Post</a>
+</span>
+<a class="home-link" href="http://craiccomputing.blogspot.com/">Home</a>
+</div>
+<div class="clear"></div>
+<div class="post-feeds">
+<div class="feed-links">
+Subscribe to:
+<a class="feed-link" href="http://craiccomputing.blogspot.com/feeds/621006380926253540/comments/default" target="_blank" type="application/atom+xml">Post Comments (Atom)</a>
+</div>
+</div>
+<script type="text/javascript">window.___gcfg = {'lang': 'en'};</script>
+</div><div class="widget Profile" id="Profile1">
+<h2>Contributors</h2>
+<div class="widget-content">
+<ul>
+<li><a data-gapiattached="true" data-onload="true" data-gapiscan="true" class="profile-name-link g-profile" href="http://www.blogger.com/profile/10916230720502332632" style="background-image: url(//www.blogger.com/img/logo-16.png);">Robert Jones</a></li>
+<li><a data-gapiattached="true" data-onload="true" data-gapiscan="true" class="profile-name-link g-profile" href="http://www.blogger.com/profile/07503053614730814672" style="background-image: url(//www.blogger.com/img/logo-16.png);">Robert Jones</a></li>
+<li><a data-gapiattached="true" data-onload="true" data-gapiscan="true" class="profile-name-link g-profile" href="http://www.blogger.com/profile/13582954721486542844" style="background-image: url(//www.blogger.com/img/logo-16.png);">Robert Jones</a></li>
+</ul>
+<div class="clear"></div>
+<span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="http://www.blogger.com/rearrange?blogID=7975027231082637331&amp;widgetType=Profile&amp;widgetId=Profile1&amp;action=editWidget&amp;sectionId=main" onclick='return _WidgetManager._PopupConfig(document.getElementById("Profile1"));' target="configProfile1" title="Edit">
+<img alt="" src="Craic%20Computing%20Tech%20Tips:%20Ruby,%20WEBrick%20and%20CGI%20scripts_files/icon18_wrench_allbkg.png" height="18" width="18">
+</a>
+</span>
+</span>
+<div class="clear"></div>
+</div>
+</div><div class="widget Subscribe" id="Subscribe1">
+<div style="white-space:nowrap">
+<h2 class="title">Subscribe To This Site</h2>
+<div class="widget-content">
+<div class="subscribe-wrapper subscribe-type-POST">
+<div class="subscribe expanded subscribe-type-POST" id="SW_READER_LIST_Subscribe1POST" style="display:none;">
+<div class="top">
+<span class="inner" onclick='return(_SW_toggleReaderList(event, "Subscribe1POST"));'>
+<img class="subscribe-dropdown-arrow" src="Craic%20Computing%20Tech%20Tips:%20Ruby,%20WEBrick%20and%20CGI%20scripts_files/arrow_dropdown.gif">
+<img alt="" class="feed-icon" src="Craic%20Computing%20Tech%20Tips:%20Ruby,%20WEBrick%20and%20CGI%20scripts_files/icon_feed12.png" align="absmiddle" border="0">
+Posts
+</span>
+<div class="feed-reader-links">
+<a class="feed-reader-link" href="http://www.netvibes.com/subscribe.php?url=http%3A%2F%2Fcraiccomputing.blogspot.com%2Ffeeds%2Fposts%2Fdefault" target="_blank">
+<img src="Craic%20Computing%20Tech%20Tips:%20Ruby,%20WEBrick%20and%20CGI%20scripts_files/subscribe-netvibes.png">
+</a>
+<a class="feed-reader-link" href="http://add.my.yahoo.com/content?url=http%3A%2F%2Fcraiccomputing.blogspot.com%2Ffeeds%2Fposts%2Fdefault" target="_blank">
+<img src="Craic%20Computing%20Tech%20Tips:%20Ruby,%20WEBrick%20and%20CGI%20scripts_files/subscribe-yahoo.png">
+</a>
+<a class="feed-reader-link" href="http://craiccomputing.blogspot.com/feeds/posts/default" target="_blank">
+<img class="feed-icon" src="Craic%20Computing%20Tech%20Tips:%20Ruby,%20WEBrick%20and%20CGI%20scripts_files/icon_feed12.png" align="absmiddle">
+                    Atom
+                  </a>
+</div>
+</div>
+<div class="bottom"></div>
+</div>
+<div class="subscribe" id="SW_READER_LIST_CLOSED_Subscribe1POST" onclick='return(_SW_toggleReaderList(event, "Subscribe1POST"));'>
+<div class="top">
+<span class="inner">
+<img class="subscribe-dropdown-arrow" src="Craic%20Computing%20Tech%20Tips:%20Ruby,%20WEBrick%20and%20CGI%20scripts_files/arrow_dropdown.gif">
+<span onclick='return(_SW_toggleReaderList(event, "Subscribe1POST"));'>
+<img alt="" class="feed-icon" src="Craic%20Computing%20Tech%20Tips:%20Ruby,%20WEBrick%20and%20CGI%20scripts_files/icon_feed12.png" align="absmiddle" border="0">
+Posts
+</span>
+</span>
+</div>
+<div class="bottom"></div>
+</div>
+</div>
+<div class="subscribe-wrapper subscribe-type-PER_POST">
+<div class="subscribe expanded subscribe-type-PER_POST" id="SW_READER_LIST_Subscribe1PER_POST" style="display:none;">
+<div class="top">
+<span class="inner" onclick='return(_SW_toggleReaderList(event, "Subscribe1PER_POST"));'>
+<img class="subscribe-dropdown-arrow" src="Craic%20Computing%20Tech%20Tips:%20Ruby,%20WEBrick%20and%20CGI%20scripts_files/arrow_dropdown.gif">
+<img alt="" class="feed-icon" src="Craic%20Computing%20Tech%20Tips:%20Ruby,%20WEBrick%20and%20CGI%20scripts_files/icon_feed12.png" align="absmiddle" border="0">
+Comments
+</span>
+<div class="feed-reader-links">
+<a class="feed-reader-link" href="http://www.netvibes.com/subscribe.php?url=http%3A%2F%2Fcraiccomputing.blogspot.com%2Ffeeds%2F621006380926253540%2Fcomments%2Fdefault" target="_blank">
+<img src="Craic%20Computing%20Tech%20Tips:%20Ruby,%20WEBrick%20and%20CGI%20scripts_files/subscribe-netvibes.png">
+</a>
+<a class="feed-reader-link" href="http://add.my.yahoo.com/content?url=http%3A%2F%2Fcraiccomputing.blogspot.com%2Ffeeds%2F621006380926253540%2Fcomments%2Fdefault" target="_blank">
+<img src="Craic%20Computing%20Tech%20Tips:%20Ruby,%20WEBrick%20and%20CGI%20scripts_files/subscribe-yahoo.png">
+</a>
+<a class="feed-reader-link" href="http://craiccomputing.blogspot.com/feeds/621006380926253540/comments/default" target="_blank">
+<img class="feed-icon" src="Craic%20Computing%20Tech%20Tips:%20Ruby,%20WEBrick%20and%20CGI%20scripts_files/icon_feed12.png" align="absmiddle">
+                    Atom
+                  </a>
+</div>
+</div>
+<div class="bottom"></div>
+</div>
+<div class="subscribe" id="SW_READER_LIST_CLOSED_Subscribe1PER_POST" onclick='return(_SW_toggleReaderList(event, "Subscribe1PER_POST"));'>
+<div class="top">
+<span class="inner">
+<img class="subscribe-dropdown-arrow" src="Craic%20Computing%20Tech%20Tips:%20Ruby,%20WEBrick%20and%20CGI%20scripts_files/arrow_dropdown.gif">
+<span onclick='return(_SW_toggleReaderList(event, "Subscribe1PER_POST"));'>
+<img alt="" class="feed-icon" src="Craic%20Computing%20Tech%20Tips:%20Ruby,%20WEBrick%20and%20CGI%20scripts_files/icon_feed12.png" align="absmiddle" border="0">
+Comments
+</span>
+</span>
+</div>
+<div class="bottom"></div>
+</div>
+</div>
+<div style="clear:both"></div>
+</div>
+</div>
+<div class="clear"></div>
+<span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="http://www.blogger.com/rearrange?blogID=7975027231082637331&amp;widgetType=Subscribe&amp;widgetId=Subscribe1&amp;action=editWidget&amp;sectionId=main" onclick='return _WidgetManager._PopupConfig(document.getElementById("Subscribe1"));' target="configSubscribe1" title="Edit">
+<img alt="" src="Craic%20Computing%20Tech%20Tips:%20Ruby,%20WEBrick%20and%20CGI%20scripts_files/icon18_wrench_allbkg.png" height="18" width="18">
+</a>
+</span>
+</span>
+<div class="clear"></div>
+</div><div class="widget BlogArchive" id="BlogArchive1">
+<h2>Archive of Tips</h2>
+<div class="widget-content">
+<div id="ArchiveList">
+<div id="BlogArchive1_ArchiveList">
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/search?updated-min=2014-01-01T00:00:00-08:00&amp;updated-max=2015-01-01T00:00:00-08:00&amp;max-results=8">2014</a>
+<span class="post-count" dir="ltr">(8)</span>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2014_10_01_archive.html">October</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2014_09_01_archive.html">September</a>
+<span class="post-count" dir="ltr">(4)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2014_05_01_archive.html">May</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2014_03_01_archive.html">March</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2014_02_01_archive.html">February</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/search?updated-min=2013-01-01T00:00:00-08:00&amp;updated-max=2014-01-01T00:00:00-08:00&amp;max-results=26">2013</a>
+<span class="post-count" dir="ltr">(26)</span>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2013_12_01_archive.html">December</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2013_11_01_archive.html">November</a>
+<span class="post-count" dir="ltr">(3)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2013_09_01_archive.html">September</a>
+<span class="post-count" dir="ltr">(2)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2013_08_01_archive.html">August</a>
+<span class="post-count" dir="ltr">(3)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2013_07_01_archive.html">July</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2013_06_01_archive.html">June</a>
+<span class="post-count" dir="ltr">(4)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2013_05_01_archive.html">May</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2013_04_01_archive.html">April</a>
+<span class="post-count" dir="ltr">(5)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2013_03_01_archive.html">March</a>
+<span class="post-count" dir="ltr">(2)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2013_02_01_archive.html">February</a>
+<span class="post-count" dir="ltr">(3)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2013_01_01_archive.html">January</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/search?updated-min=2012-01-01T00:00:00-08:00&amp;updated-max=2013-01-01T00:00:00-08:00&amp;max-results=28">2012</a>
+<span class="post-count" dir="ltr">(28)</span>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2012_12_01_archive.html">December</a>
+<span class="post-count" dir="ltr">(2)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2012_11_01_archive.html">November</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2012_10_01_archive.html">October</a>
+<span class="post-count" dir="ltr">(3)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2012_09_01_archive.html">September</a>
+<span class="post-count" dir="ltr">(2)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2012_08_01_archive.html">August</a>
+<span class="post-count" dir="ltr">(5)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2012_07_01_archive.html">July</a>
+<span class="post-count" dir="ltr">(6)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2012_06_01_archive.html">June</a>
+<span class="post-count" dir="ltr">(3)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2012_05_01_archive.html">May</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2012_02_01_archive.html">February</a>
+<span class="post-count" dir="ltr">(2)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2012_01_01_archive.html">January</a>
+<span class="post-count" dir="ltr">(3)</span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/search?updated-min=2011-01-01T00:00:00-08:00&amp;updated-max=2012-01-01T00:00:00-08:00&amp;max-results=44">2011</a>
+<span class="post-count" dir="ltr">(44)</span>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2011_11_01_archive.html">November</a>
+<span class="post-count" dir="ltr">(11)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2011_08_01_archive.html">August</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2011_07_01_archive.html">July</a>
+<span class="post-count" dir="ltr">(2)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2011_06_01_archive.html">June</a>
+<span class="post-count" dir="ltr">(6)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2011_04_01_archive.html">April</a>
+<span class="post-count" dir="ltr">(3)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2011_03_01_archive.html">March</a>
+<span class="post-count" dir="ltr">(6)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2011_02_01_archive.html">February</a>
+<span class="post-count" dir="ltr">(14)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2011_01_01_archive.html">January</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/search?updated-min=2010-01-01T00:00:00-08:00&amp;updated-max=2011-01-01T00:00:00-08:00&amp;max-results=40">2010</a>
+<span class="post-count" dir="ltr">(40)</span>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2010_12_01_archive.html">December</a>
+<span class="post-count" dir="ltr">(7)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2010_11_01_archive.html">November</a>
+<span class="post-count" dir="ltr">(5)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2010_10_01_archive.html">October</a>
+<span class="post-count" dir="ltr">(8)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2010_09_01_archive.html">September</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2010_08_01_archive.html">August</a>
+<span class="post-count" dir="ltr">(3)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2010_06_01_archive.html">June</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2010_05_01_archive.html">May</a>
+<span class="post-count" dir="ltr">(3)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2010_04_01_archive.html">April</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2010_03_01_archive.html">March</a>
+<span class="post-count" dir="ltr">(7)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2010_02_01_archive.html">February</a>
+<span class="post-count" dir="ltr">(4)</span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/search?updated-min=2009-01-01T00:00:00-08:00&amp;updated-max=2010-01-01T00:00:00-08:00&amp;max-results=50">2009</a>
+<span class="post-count" dir="ltr">(53)</span>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2009_12_01_archive.html">December</a>
+<span class="post-count" dir="ltr">(4)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2009_11_01_archive.html">November</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2009_10_01_archive.html">October</a>
+<span class="post-count" dir="ltr">(3)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2009_09_01_archive.html">September</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2009_08_01_archive.html">August</a>
+<span class="post-count" dir="ltr">(9)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2009_07_01_archive.html">July</a>
+<span class="post-count" dir="ltr">(7)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2009_06_01_archive.html">June</a>
+<span class="post-count" dir="ltr">(9)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2009_05_01_archive.html">May</a>
+<span class="post-count" dir="ltr">(6)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2009_04_01_archive.html">April</a>
+<span class="post-count" dir="ltr">(5)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2009_03_01_archive.html">March</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2009_02_01_archive.html">February</a>
+<span class="post-count" dir="ltr">(3)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2009_01_01_archive.html">January</a>
+<span class="post-count" dir="ltr">(4)</span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate expanded">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy toggle-open">▼&nbsp;</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/search?updated-min=2008-01-01T00:00:00-08:00&amp;updated-max=2009-01-01T00:00:00-08:00&amp;max-results=21">2008</a>
+<span class="post-count" dir="ltr">(21)</span>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2008_12_01_archive.html">December</a>
+<span class="post-count" dir="ltr">(2)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2008_11_01_archive.html">November</a>
+<span class="post-count" dir="ltr">(3)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2008_10_01_archive.html">October</a>
+<span class="post-count" dir="ltr">(2)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2008_09_01_archive.html">September</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2008_08_01_archive.html">August</a>
+<span class="post-count" dir="ltr">(2)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2008_06_01_archive.html">June</a>
+<span class="post-count" dir="ltr">(5)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate expanded">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy toggle-open">▼&nbsp;</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2008_03_01_archive.html">March</a>
+<span class="post-count" dir="ltr">(4)</span>
+<ul class="posts">
+<li><a href="http://craiccomputing.blogspot.com/2008/03/ensuring-dsl-connection-stays-up.html">Ensuring a DSL Connection Stays Up</a></li>
+<li><a href="http://craiccomputing.blogspot.com/2008/03/ruby-unable-to-find-installed-gems-you.html">Ruby unable to find installed Gems? You may have 2...</a></li>
+<li><a href="http://craiccomputing.blogspot.com/2008/03/ruby-activerecord-and-postgresql.html">Ruby, ActiveRecord and Postgresql</a></li>
+<li><a href="http://craiccomputing.blogspot.com/2008/03/ruby-webrick-and-cgi-scripts.html">Ruby, WEBrick and CGI scripts</a></li>
+</ul>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2008_02_01_archive.html">February</a>
+<span class="post-count" dir="ltr">(2)</span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/search?updated-min=2007-01-01T00:00:00-08:00&amp;updated-max=2008-01-01T00:00:00-08:00&amp;max-results=23">2007</a>
+<span class="post-count" dir="ltr">(23)</span>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2007_12_01_archive.html">December</a>
+<span class="post-count" dir="ltr">(2)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2007_11_01_archive.html">November</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2007_07_01_archive.html">July</a>
+<span class="post-count" dir="ltr">(3)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2007_06_01_archive.html">June</a>
+<span class="post-count" dir="ltr">(6)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2007_05_01_archive.html">May</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2007_04_01_archive.html">April</a>
+<span class="post-count" dir="ltr">(2)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://craiccomputing.blogspot.com/2007_01_01_archive.html">January</a>
+<span class="post-count" dir="ltr">(8)</span>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="clear"></div>
+<span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="http://www.blogger.com/rearrange?blogID=7975027231082637331&amp;widgetType=BlogArchive&amp;widgetId=BlogArchive1&amp;action=editWidget&amp;sectionId=main" onclick='return _WidgetManager._PopupConfig(document.getElementById("BlogArchive1"));' target="configBlogArchive1" title="Edit">
+<img alt="" src="Craic%20Computing%20Tech%20Tips:%20Ruby,%20WEBrick%20and%20CGI%20scripts_files/icon18_wrench_allbkg.png" height="18" width="18">
+</a>
+</span>
+</span>
+<div class="clear"></div>
+</div>
+</div></div>
+</div><iframe mytubeid="mytube2" src="Craic%20Computing%20Tech%20Tips:%20Ruby,%20WEBrick%20and%20CGI%20scripts_files/blank.html" style="height: 0px; width: 0px; position: absolute;" name="google_top_static_frame" id="google_top_static_frame" frameborder="0"></iframe>
+<script type="text/javascript">
+if (window.jstiming) window.jstiming.load.tick('widgetJsBefore');
+</script><script type="text/javascript" src="Craic%20Computing%20Tech%20Tips:%20Ruby,%20WEBrick%20and%20CGI%20scripts_files/707158982-widgets.js"></script>
+<script gapi_processed="true" type="text/javascript" src="Craic%20Computing%20Tech%20Tips:%20Ruby,%20WEBrick%20and%20CGI%20scripts_files/plusone.js"></script>
+<script type="text/javascript">
+if (typeof(BLOG_attachCsiOnload) != 'undefined' && BLOG_attachCsiOnload != null) { window['blogger_templates_experiment_id'] = "templatesV1";window['blogger_blog_id'] = '7975027231082637331';BLOG_attachCsiOnload('item_'); }_WidgetManager._Init('//www.blogger.com/rearrange?blogID\x3d7975027231082637331','//craiccomputing.blogspot.com/2008/03/ruby-webrick-and-cgi-scripts.html','7975027231082637331');
+_WidgetManager._SetDataContext([{'name': 'blog', 'data': {'blogId': '7975027231082637331', 'bloggerUrl': 'http://www.blogger.com', 'title': 'Craic Computing Tech Tips', 'pageType': 'item', 'postId': '621006380926253540', 'url': 'http://craiccomputing.blogspot.com/2008/03/ruby-webrick-and-cgi-scripts.html', 'canonicalUrl': 'http://craiccomputing.blogspot.com/2008/03/ruby-webrick-and-cgi-scripts.html', 'canonicalHomepageUrl': 'http://craiccomputing.blogspot.com/', 'homepageUrl': 'http://craiccomputing.blogspot.com/', 'blogspotFaviconUrl': 'http://craiccomputing.blogspot.com/favicon.ico', 'enabledCommentProfileImages': true, 'adultContent': false, 'disableAdSenseWidget': false, 'analyticsAccountNumber': 'UA-8277234-5', 'searchLabel': '', 'searchQuery': '', 'pageName': 'Ruby, WEBrick and CGI scripts', 'pageTitle': 'Craic Computing Tech Tips: Ruby, WEBrick and CGI scripts', 'encoding': 'UTF-8', 'locale': 'en', 'localeUnderscoreDelimited': 'en', 'isPrivate': false, 'isMobile': false, 'isMobileRequest': false, 'mobileClass': '', 'isPrivateBlog': false, 'languageDirection': 'ltr', 'feedLinks': '\74link rel\75\42alternate\42 type\75\42application/atom+xml\42 title\75\42Craic Computing Tech Tips - Atom\42 href\75\42http://craiccomputing.blogspot.com/feeds/posts/default\42 /\76\n\74link rel\75\42alternate\42 type\75\42application/rss+xml\42 title\75\42Craic Computing Tech Tips - RSS\42 href\75\42http://craiccomputing.blogspot.com/feeds/posts/default?alt\75rss\42 /\76\n\74link rel\75\42service.post\42 type\75\42application/atom+xml\42 title\75\42Craic Computing Tech Tips - Atom\42 href\75\42http://www.blogger.com/feeds/7975027231082637331/posts/default\42 /\76\n\n\74link rel\75\42alternate\42 type\75\42application/atom+xml\42 title\75\42Craic Computing Tech Tips - Atom\42 href\75\42http://craiccomputing.blogspot.com/feeds/621006380926253540/comments/default\42 /\76\n', 'meTag': '', 'openIdOpTag': '', 'latencyHeadScript': '\74script type\75\42text/javascript\42\76(function() { var b\75window,f\75\42chrome\42,g\75\42tick\42,k\75\42jstiming\42;(function(){function d(a){this.t\75{};this.tick\75function(a,d,c){var e\75void 0!\75c?c:(new Date).getTime();this.t[a]\75[e,d];if(void 0\75\75c)try{b.console.timeStamp(\42CSI/\42+a)}catch(h){}};this[g](\42start\42,null,a)}var a;b.performance\46\46(a\75b.performance.timing);var n\75a?new d(a.responseStart):new d;b.jstiming\75{Timer:d,load:n};if(a){var c\75a.navigationStart,h\75a.responseStart;0\74c\46\46h\76\75c\46\46(b[k].srt\75h-c)}if(a){var e\75b[k].load;0\74c\46\46h\76\75c\46\46(e[g](\42_wtsrt\42,void 0,c),e[g](\42wtsrt_\42,\42_wtsrt\42,h),e[g](\42tbsd_\42,\42wtsrt_\42))}try{a\75null,\nb[f]\46\46b[f].csi\46\46(a\75Math.floor(b[f].csi().pageT),e\46\0460\74c\46\46(e[g](\42_tbnd\42,void 0,b[f].csi().startE),e[g](\42tbnd_\42,\42_tbnd\42,c))),null\75\75a\46\46b.gtbExternal\46\46(a\75b.gtbExternal.pageT()),null\75\75a\46\46b.external\46\46(a\75b.external.pageT,e\46\0460\74c\46\46(e[g](\42_tbnd\42,void 0,b.external.startE),e[g](\42tbnd_\42,\42_tbnd\42,c))),a\46\46(b[k].pt\75a)}catch(p){}})();b.tickAboveFold\75function(d){var a\0750;if(d.offsetParent){do a+\75d.offsetTop;while(d\75d.offsetParent)}d\75a;750\76\75d\46\46b[k].load[g](\42aft\42)};var l\75!1;function m(){l||(l\75!0,b[k].load[g](\42firstScrollTime\42))}b.addEventListener?b.addEventListener(\42scroll\42,m,!1):b.attachEvent(\42onscroll\42,m);\n })();\74/script\076', 'mobileHeadScript': '', 'view': '', 'dynamicViewsCommentsSrc': '//www.blogblog.com/dynamicviews/4224c15c4e7c9321/js/comments.js', 'dynamicViewsScriptSrc': '//www.blogblog.com/dynamicviews/cda3ddef07a85452', 'plusOneApiSrc': 'https://apis.google.com/js/plusone.js', 'sf': 'n', 'tf': ''}}, {'name': 'skin', 'data': {'vars': {'bordercolor': '#999999', 'linkcolor': '#5588aa', 'titlecolor': '#000000', 'visitedlinkcolor': '#999999', 'textcolor': '#000000', 'pagetitlecolor': '#000000', 'bodyfont': 'normal normal 100% Georgia,Serif;', 'endSide': 'right', 'pagetitlefont': 'normal bold 200% Georgia,Serif', 'startSide': 'left', 'bgcolor': '#ffffff', 'footercolor': '#555555'}, 'override': ''}}, {'name': 'view', 'data': {'classic': {'name': 'classic', 'url': '?view\75classic'}, 'flipcard': {'name': 'flipcard', 'url': '?view\75flipcard'}, 'magazine': {'name': 'magazine', 'url': '?view\75magazine'}, 'mosaic': {'name': 'mosaic', 'url': '?view\75mosaic'}, 'sidebar': {'name': 'sidebar', 'url': '?view\75sidebar'}, 'snapshot': {'name': 'snapshot', 'url': '?view\75snapshot'}, 'timeslide': {'name': 'timeslide', 'url': '?view\75timeslide'}}}]);
+_WidgetManager._RegisterWidget('_NavbarView', new _WidgetInfo('Navbar1', 'navbar', null, document.getElementById('Navbar1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HeaderView', new _WidgetInfo('Header1', 'main', null, document.getElementById('Header1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_BlogView', new _WidgetInfo('Blog1', 'main', null, document.getElementById('Blog1'), {'cmtInteractionsEnabled': false, 'lightboxEnabled': true, 'lightboxModuleUrl': 'https://www.blogger.com/static/v1/jsbin/2899692079-lbx.js', 'lightboxCssUrl': 'https://www.blogger.com/static/v1/v-css/2392111094-lightbox_bundle.css'}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_ProfileView', new _WidgetInfo('Profile1', 'main', null, document.getElementById('Profile1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_SubscribeView', new _WidgetInfo('Subscribe1', 'main', null, document.getElementById('Subscribe1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_BlogArchiveView', new _WidgetInfo('BlogArchive1', 'main', null, document.getElementById('BlogArchive1'), {'languageDirection': 'ltr'}, 'displayModeFull'));
+</script>
+
+</body></html>

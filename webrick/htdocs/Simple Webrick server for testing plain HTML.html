@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Simple Webrick server for testing plain HTML</title>
+    <meta name="author" content="Jeremy Walworth">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="Simple%20Webrick%20server%20for%20testing%20plain%20HTML_files/bootstrap.css" type="text/css" rel="stylesheet" media="all">
+<link href="Simple%20Webrick%20server%20for%20testing%20plain%20HTML_files/style.css" type="text/css" rel="stylesheet" media="all">
+<link href="Simple%20Webrick%20server%20for%20testing%20plain%20HTML_files/twitter-bootstrap.css" type="text/css" rel="stylesheet" media="all">
+
+ 
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  <link type="text/css" rel="stylesheet" href="Simple%20Webrick%20server%20for%20testing%20plain%20HTML_files/mytube.css"><script src="Simple%20Webrick%20server%20for%20testing%20plain%20HTML_files/ga.js"></script><script src="Simple%20Webrick%20server%20for%20testing%20plain%20HTML_files/mutationObserver.js"></script><script src="Simple%20Webrick%20server%20for%20testing%20plain%20HTML_files/mytube.js"></script></head>
+
+  <body>
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="http://jeremywalworth.com/">Jeremy Walworth</a>
+          <ul class="nav">
+              
+                <li><a href="http://jeremywalworth.com/about">About Me</a></li>
+              
+                <li><a href="http://jeremywalworth.com/archive">Archive</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        <div class="page-header">
+  <h1>Simple Webrick server for testing plain HTML </h1>
+</div>
+
+<div class="row">
+  <div class="span8">
+    <p>Sometimes I find myself in need of a quick and dirty HTTP server 
+when I'm working in plain HTML with a little Javascript. For example: 
+when I'm building banner ads that use scriptaculous. Rather than mess 
+with lighttpd and get the files where it can see them, I found myself 
+wanting to the do the old "ruby script/server" as we do in Rails.</p>
+
+<p>So I looked at the Webrick home page, and ended up with this:
+</p><pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><span class="pln">    </span><span class="kwd">require</span><span class="pln"> </span><span class="str">'webrick'</span></li><li class="L1"><span class="pln">    include </span><span class="typ">WEBrick</span></li><li class="L2"><span class="pln">    s </span><span class="pun">=</span><span class="pln"> </span><span class="typ">HTTPServer</span><span class="pun">.</span><span class="kwd">new</span><span class="pun">(</span></li><li class="L3"><span class="pln">     </span><span class="pun">:</span><span class="typ">Port</span><span class="pln"> </span><span class="pun">=&gt;</span><span class="pln"> </span><span class="lit">3000</span><span class="pun">,</span></li><li class="L4"><span class="pln">     </span><span class="pun">:</span><span class="typ">DocumentRoot</span><span class="pln"> </span><span class="pun">=&gt;</span><span class="pln"> </span><span class="typ">Dir</span><span class="pun">::</span><span class="pln">pwd</span></li><li class="L5"><span class="pln">    </span><span class="pun">)</span></li><li class="L6"><span class="pln">    trap</span><span class="pun">(</span><span class="str">"INT"</span><span class="pun">){</span><span class="pln"> s</span><span class="pun">.</span><span class="pln">shutdown </span><span class="pun">}</span></li><li class="L7"><span class="pln">    s</span><span class="pun">.</span><span class="pln">start</span></li></ol></pre>
+I named it server.rb and just drop it in the directory containing the 
+html files I want to test. A simple "ruby server.rb" fires it up and 
+then I can then use a URL like: <a href="http://192.168.2.45:3000/">http://192.168.2.45:3000</a>
+ to see my files. Now when I'm developing on my Linux box, I can use IE 
+on a separate (WinXP) box to quickly test what I've done. No need to add
+ symlinks or otherwise wire things up such that lighty can see my work.<p></p>
+
+<p>There are two problems with this, 1. I could not get eRuby (.rhtml) 
+to work with Webrick and 2. it is dreadfully slow. So for testing eRuby 
+stuff, I'm still using lighty.</p>
+
+    <hr>
+    <div class="pagination">
+      <ul>
+        <ul>
+            <li class="prev disabled"><a>← Previous</a></li>
+
+            <li><a href="http://jeremywalworth.com/archive">Archive</a></li>
+
+            <li class="next"><a href="http://jeremywalworth.com/simple-templates-in-rhtml" title="Simple templates in RHTML">Next →</a></li>
+        </ul>
+      </ul>
+    </div>
+
+  </div>
+  
+  <div class="span4">
+    <h4>Published</h4>
+    <div class="date"><span>2008-05-23</span></div>
+    <br>
+    <h4>Categories</h4>
+    <ul class="tag_box">
+    </ul>
+    <br>
+    <h4>Tags</h4>
+    <ul class="tag_box">
+    </ul>
+  </div>
+</div>
+
+      </div>
+
+      <footer>
+        <p>© Jeremy Walworth 2013
+          with help from <a href="http://ruhoh.com/" target="_blank" title="The Definitive Technical Blogging Framework">ruhoh</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    <!-- Google Prettify -->
+<script src="Simple%20Webrick%20server%20for%20testing%20plain%20HTML_files/prettify.js"></script><mytubeelement data="{&quot;bundle&quot;:{&quot;label_delimitor&quot;:&quot;:&quot;,&quot;percentage&quot;:&quot;%&quot;,&quot;smart_buffer&quot;:&quot;Smart Buffer&quot;,&quot;start_playing_when_buffered&quot;:&quot;Start playing when buffered&quot;,&quot;sound&quot;:&quot;Sound&quot;,&quot;desktop_notification&quot;:&quot;Desktop Notification&quot;,&quot;continuation_on_next_line&quot;:&quot;-&quot;,&quot;loop&quot;:&quot;Loop&quot;,&quot;only_notify&quot;:&quot;Only Notify&quot;,&quot;estimated_time&quot;:&quot;Estimated Time&quot;,&quot;global_preferences&quot;:&quot;Global Preferences&quot;,&quot;no_notification_supported_on_your_browser&quot;:&quot;No notification style supported on your browser version&quot;,&quot;video_buffered&quot;:&quot;Video Buffered&quot;,&quot;buffered&quot;:&quot;Buffered&quot;,&quot;hyphen&quot;:&quot;-&quot;,&quot;buffered_message&quot;:&quot;The video has been buffered as requested and is ready to play.&quot;,&quot;not_supported&quot;:&quot;Not Supported&quot;,&quot;on&quot;:&quot;On&quot;,&quot;off&quot;:&quot;Off&quot;,&quot;click_to_enable_for_this_site&quot;:&quot;Click to enable for this site&quot;,&quot;desktop_notification_denied&quot;:&quot;You have denied permission for desktop notification for this site&quot;,&quot;notification_status_delimitor&quot;:&quot;;&quot;,&quot;error&quot;:&quot;Error&quot;,&quot;adblock_interferance_message&quot;:&quot;Adblock (or similar extension) is known to interfere with SmartVideo. Please add this url to adblock whitelist.&quot;,&quot;calculating&quot;:&quot;Calculating&quot;,&quot;waiting&quot;:&quot;Waiting&quot;,&quot;will_start_buffering_when_initialized&quot;:&quot;Will start buffering when initialized&quot;,&quot;will_start_playing_when_initialized&quot;:&quot;Will start playing when initialized&quot;,&quot;completed&quot;:&quot;Completed&quot;,&quot;buffering_stalled&quot;:&quot;Buffering is stalled. Will stop.&quot;,&quot;stopped&quot;:&quot;Stopped&quot;,&quot;hr&quot;:&quot;Hr&quot;,&quot;min&quot;:&quot;Min&quot;,&quot;sec&quot;:&quot;Sec&quot;,&quot;any_moment&quot;:&quot;Any Moment&quot;,&quot;popup_donate_to&quot;:&quot;Donate to&quot;,&quot;extension_id&quot;:null},&quot;prefs&quot;:{&quot;desktopNotification&quot;:true,&quot;soundNotification&quot;:true,&quot;logLevel&quot;:0,&quot;enable&quot;:true,&quot;loop&quot;:false,&quot;hidePopup&quot;:false,&quot;autoPlay&quot;:false,&quot;autoBuffer&quot;:false,&quot;autoPlayOnBuffer&quot;:false,&quot;autoPlayOnBufferPercentage&quot;:42,&quot;autoPlayOnSmartBuffer&quot;:true,&quot;quality&quot;:&quot;default&quot;,&quot;fshd&quot;:false,&quot;onlyNotification&quot;:false,&quot;enableFullScreen&quot;:true,&quot;saveBandwidth&quot;:false,&quot;hideAnnotations&quot;:false,&quot;turnOffPagedBuffering&quot;:false}}" event="preferencesUpdated" id="myTubeRelayElementToPage"></mytubeelement><mytubeelement data="{&quot;loadBundle&quot;:true}" event="relayPrefs" id="myTubeRelayElementToTab"></mytubeelement>
+<script>
+  var pres = document.getElementsByTagName("pre");
+  for (var i=0; i < pres.length; ++i) {
+    pres[i].className = "prettyprint linenums";
+  }
+  prettyPrint();
+</script>
+<!-- end Google Prettify -->
+    <script>
+  var _gaq=[['_setAccount','UA-26942824-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+  
+
+</body></html>

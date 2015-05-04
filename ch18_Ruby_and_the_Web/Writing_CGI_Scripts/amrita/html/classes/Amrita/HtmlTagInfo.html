@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Amrita::HtmlTagInfo</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Amrita::HtmlTagInfo</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../files/lib/amrita/tag_rb.html">
+                lib/amrita/tag.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                <a href="TagInfo.html">
+                TagInfo
+               </a>
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000164">new</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+    <div id="includes">
+      <h3 class="section-bar">Included Modules</h3>
+
+      <div id="includes-list">
+        <span class="include-name"><a href="../Amrita.html">Amrita</a></span>
+      </div>
+    </div>
+
+    <div id="section">
+
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">EMPTY</td>
+          <td>=</td>
+          <td class="context-item-value">Set::new(*%w(area base basefont bgsound br col frame hr img input isindex                   keygen link meta nextid param spacer wbr))</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">INLINE</td>
+          <td>=</td>
+          <td class="context-item-value">Set.new(*%w(em tt i b u strike s big small strong dfn code samp kbd var cite abbr acronym sub))</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">BLOCK</td>
+          <td>=</td>
+          <td class="context-item-value">Set.new(*%w(address dl isindex p blockquote fieldset menu pre center form noframes table dir                  h1 h2 h3 h4 h5 h6 noscript ul div hr ol))</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">LIST</td>
+          <td>=</td>
+          <td class="context-item-value">Set.new(*%w(ul ol dir))</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">ITEM</td>
+          <td>=</td>
+          <td class="context-item-value">Set.new(*%w(li dt dd tr th td))</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">ACCEPT_ANY</td>
+          <td>=</td>
+          <td class="context-item-value">Set.new(*%w(html head body td))</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">BLOCK_OR_ITEM</td>
+          <td>=</td>
+          <td class="context-item-value">(BLOCK | ITEM)</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">BLOCK_OR_EMPTY</td>
+          <td>=</td>
+          <td class="context-item-value">(BLOCK | EMPTY)</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">CAN_OMIT_ENDTAG</td>
+          <td>=</td>
+          <td class="context-item-value">Set.new(*%w(html head body p li tr th td thead tbody tfoot colgroup dt dd option))</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000164" class="method-detail">
+        <a name="M000164"></a>
+
+        <div class="method-heading">
+          <a href="#M000164" class="method-signature">
+          <span class="method-name">new</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000164-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000164-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/amrita/tag.rb, line 280</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
+      <span class="ruby-keyword kw">super</span>
+
+      <span class="ruby-identifier">pptype1</span> = <span class="ruby-node">%w(html head body table ul ol div br table tr)</span>
+      <span class="ruby-identifier">pptype1</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">name</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">get_tag_info</span>(<span class="ruby-identifier">name</span>).<span class="ruby-identifier">pptype</span> = <span class="ruby-value">1</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">pptype2</span> = <span class="ruby-node">%w(title link meta tr li th td h1 h2 h3 h4 h5 h6 p)</span>
+      <span class="ruby-identifier">pptype2</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">name</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">get_tag_info</span>(<span class="ruby-identifier">name</span>).<span class="ruby-identifier">pptype</span> = <span class="ruby-value">2</span>
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">empty</span> = <span class="ruby-node">%w(area base basefont bgsound br col frame hr img input isindex 
+                 keygen link meta nextid param spacer wbr)</span> 
+      <span class="ruby-identifier">empty</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">name</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">get_tag_info</span>(<span class="ruby-identifier">name</span>).<span class="ruby-identifier">can_be_empty</span> = <span class="ruby-keyword kw">true</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">get_tag_info</span>(<span class="ruby-identifier">:a</span>).<span class="ruby-identifier">set_url_attr</span>(<span class="ruby-identifier">:href</span>)
+      <span class="ruby-identifier">get_tag_info</span>(<span class="ruby-identifier">:base</span>).<span class="ruby-identifier">set_url_attr</span>(<span class="ruby-identifier">:href</span>)
+      <span class="ruby-identifier">get_tag_info</span>(<span class="ruby-identifier">:img</span>).<span class="ruby-identifier">set_url_attr</span>(<span class="ruby-identifier">:src</span>)
+      <span class="ruby-identifier">get_tag_info</span>(<span class="ruby-identifier">:img</span>).<span class="ruby-identifier">set_url_attr</span>(<span class="ruby-identifier">:usemap</span>)
+      <span class="ruby-identifier">get_tag_info</span>(<span class="ruby-identifier">:form</span>).<span class="ruby-identifier">set_url_attr</span>(<span class="ruby-identifier">:action</span>)
+      <span class="ruby-identifier">get_tag_info</span>(<span class="ruby-identifier">:link</span>).<span class="ruby-identifier">set_url_attr</span>(<span class="ruby-identifier">:href</span>)
+      <span class="ruby-identifier">get_tag_info</span>(<span class="ruby-identifier">:area</span>).<span class="ruby-identifier">set_url_attr</span>(<span class="ruby-identifier">:href</span>)
+      <span class="ruby-identifier">get_tag_info</span>(<span class="ruby-identifier">:body</span>).<span class="ruby-identifier">set_url_attr</span>(<span class="ruby-identifier">:background</span>)
+      <span class="ruby-identifier">get_tag_info</span>(<span class="ruby-identifier">:script</span>).<span class="ruby-identifier">set_url_attr</span>(<span class="ruby-identifier">:src</span>)
+      <span class="ruby-identifier">get_tag_info</span>(<span class="ruby-identifier">:object</span>).<span class="ruby-identifier">set_url_attr</span>(<span class="ruby-identifier">:classid</span>)
+      <span class="ruby-identifier">get_tag_info</span>(<span class="ruby-identifier">:object</span>).<span class="ruby-identifier">set_url_attr</span>(<span class="ruby-identifier">:codebase</span>)
+      <span class="ruby-identifier">get_tag_info</span>(<span class="ruby-identifier">:object</span>).<span class="ruby-identifier">set_url_attr</span>(<span class="ruby-identifier">:data</span>)
+      <span class="ruby-identifier">get_tag_info</span>(<span class="ruby-identifier">:object</span>).<span class="ruby-identifier">set_url_attr</span>(<span class="ruby-identifier">:archive</span>)
+      <span class="ruby-identifier">get_tag_info</span>(<span class="ruby-identifier">:object</span>).<span class="ruby-identifier">set_url_attr</span>(<span class="ruby-identifier">:usemap</span>)
+      <span class="ruby-identifier">get_tag_info</span>(<span class="ruby-identifier">:applet</span>).<span class="ruby-identifier">set_url_attr</span>(<span class="ruby-identifier">:codebase</span>)
+      <span class="ruby-identifier">get_tag_info</span>(<span class="ruby-identifier">:applet</span>).<span class="ruby-identifier">set_url_attr</span>(<span class="ruby-identifier">:archive</span>)
+      <span class="ruby-identifier">get_tag_info</span>(<span class="ruby-identifier">:applet</span>).<span class="ruby-identifier">set_url_attr</span>(<span class="ruby-identifier">:usemap</span>)
+      <span class="ruby-identifier">get_tag_info</span>(<span class="ruby-identifier">:q</span>).<span class="ruby-identifier">set_url_attr</span>(<span class="ruby-identifier">:cite</span>)
+      <span class="ruby-identifier">get_tag_info</span>(<span class="ruby-identifier">:blockquote</span>).<span class="ruby-identifier">set_url_attr</span>(<span class="ruby-identifier">:cite</span>)
+      <span class="ruby-identifier">get_tag_info</span>(<span class="ruby-identifier">:ins</span>).<span class="ruby-identifier">set_url_attr</span>(<span class="ruby-identifier">:cite</span>)
+      <span class="ruby-identifier">get_tag_info</span>(<span class="ruby-identifier">:del</span>).<span class="ruby-identifier">set_url_attr</span>(<span class="ruby-identifier">:cite</span>)
+      <span class="ruby-identifier">get_tag_info</span>(<span class="ruby-identifier">:frame</span>).<span class="ruby-identifier">set_url_attr</span>(<span class="ruby-identifier">:longdesc</span>)
+      <span class="ruby-identifier">get_tag_info</span>(<span class="ruby-identifier">:frame</span>).<span class="ruby-identifier">set_url_attr</span>(<span class="ruby-identifier">:src</span>)
+      <span class="ruby-identifier">get_tag_info</span>(<span class="ruby-identifier">:iframe</span>).<span class="ruby-identifier">set_url_attr</span>(<span class="ruby-identifier">:longdesc</span>)
+      <span class="ruby-identifier">get_tag_info</span>(<span class="ruby-identifier">:iframe</span>).<span class="ruby-identifier">set_url_attr</span>(<span class="ruby-identifier">:src</span>)
+      <span class="ruby-identifier">get_tag_info</span>(<span class="ruby-identifier">:head</span>).<span class="ruby-identifier">set_url_attr</span>(<span class="ruby-identifier">:profile</span>)
+
+      <span class="ruby-constant">BLOCK</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">t</span><span class="ruby-operator">|</span> 
+        <span class="ruby-identifier">get_tag_info</span>(<span class="ruby-identifier">t</span>).<span class="ruby-identifier">tag_class</span> = <span class="ruby-constant">TagBlock</span> 
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-constant">INLINE</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">t</span><span class="ruby-operator">|</span> 
+        <span class="ruby-identifier">get_tag_info</span>(<span class="ruby-identifier">t</span>).<span class="ruby-identifier">tag_class</span> = <span class="ruby-constant">TagInline</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-constant">EMPTY</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">t</span><span class="ruby-operator">|</span> 
+        <span class="ruby-identifier">get_tag_info</span>(<span class="ruby-identifier">t</span>).<span class="ruby-identifier">tag_class</span> = <span class="ruby-constant">TagEmpty</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-constant">LIST</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">t</span><span class="ruby-operator">|</span> 
+        <span class="ruby-identifier">get_tag_info</span>(<span class="ruby-identifier">t</span>).<span class="ruby-identifier">tag_class</span> = <span class="ruby-constant">TagList</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-constant">ITEM</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">t</span><span class="ruby-operator">|</span> 
+        <span class="ruby-identifier">get_tag_info</span>(<span class="ruby-identifier">t</span>).<span class="ruby-identifier">tag_class</span> = <span class="ruby-constant">TagItem</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-node">%w(thead tbody tfoot)</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">t</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">get_tag_info</span>(<span class="ruby-identifier">t</span>).<span class="ruby-identifier">tag_class</span> = <span class="ruby-constant">TagTableSection</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-node">%w(dt dd)</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">t</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">get_tag_info</span>(<span class="ruby-identifier">t</span>).<span class="ruby-identifier">tag_class</span> = <span class="ruby-constant">TagDT</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">get_tag_info</span>(<span class="ruby-identifier">:pre</span>).<span class="ruby-identifier">tag_class</span> = <span class="ruby-constant">TagPre</span>
+      <span class="ruby-identifier">get_tag_info</span>(<span class="ruby-identifier">:p</span>).<span class="ruby-identifier">tag_class</span> = <span class="ruby-constant">TagP</span>
+
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

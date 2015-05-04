@@ -1,0 +1,1 @@
+social_counts({"StumbleUpon":0,"Reddit":0,"Facebook":{"commentsbox_count":0,"click_count":0,"total_count":0,"comment_count":0,"like_count":0,"share_count":0},"Delicious":0,"GooglePlusOne":0,"Buzz":0,"Twitter":2,"Diggs":0,"Pinterest":0,"LinkedIn":0});

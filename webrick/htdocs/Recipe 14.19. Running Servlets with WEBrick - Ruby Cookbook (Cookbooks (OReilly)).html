@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<!-- HTML5 Boilerplate -->
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class=" js no-flexbox flexbox-legacy canvas canvastext webgl no-touch geolocation postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients no-cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths"><!--<![endif]--><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"> 
+	<meta charset="utf-8"> 	<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame --> 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> <title>Recipe 14.19. Running Servlets with WEBrick - Ruby Cookbook (Cookbooks (OReilly))</title> <!-- base href="http://flylib.com/new2/tpl3/" --> <meta name="robots" content="index, follow"> <meta name="keywords" content="running,servlets,webrick,server,application,traditional,custom,servlet,dont,implement,configure,httpserver">  <meta name="description" content="Recipe 14.19. Running Servlets with WEBrick from - Ruby Cookbook (Cookbooks (OReilly)) by [ Lucas Carlson , Leonard Richardson ] OReilly Media ISBN (0596523696)"> <meta name="author" content="www.flylib.com"> 
+	<meta http-equiv="cleartype" content="on"> 
+	<link rel="shortcut icon" href="http://flylib.com/favicon.ico"> 
+	<!-- Responsive and mobile friendly stuff --> 	<meta name="HandheldFriendly" content="True"> 	<meta name="MobileOptimized" content="320"> 	<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+	<!-- Stylesheets --> 	<link rel="stylesheet" href="Recipe%2014.19.%20Running%20Servlets%20with%20WEBrick%20-%20Ruby%20Cookbook%20%28Cookbooks%20%28OReilly%29%29_files/html5reset.css" media="all"> 	<link rel="stylesheet" href="Recipe%2014.19.%20Running%20Servlets%20with%20WEBrick%20-%20Ruby%20Cookbook%20%28Cookbooks%20%28OReilly%29%29_files/responsivegridsystem.css" media="all"> 	<link rel="stylesheet" href="Recipe%2014.19.%20Running%20Servlets%20with%20WEBrick%20-%20Ruby%20Cookbook%20%28Cookbooks%20%28OReilly%29%29_files/style.css" media="all"> 	<link rel="stylesheet" href="Recipe%2014.19.%20Running%20Servlets%20with%20WEBrick%20-%20Ruby%20Cookbook%20%28Cookbooks%20%28OReilly%29%29_files/col.css" media="all"> 	<link rel="stylesheet" href="Recipe%2014.19.%20Running%20Servlets%20with%20WEBrick%20-%20Ruby%20Cookbook%20%28Cookbooks%20%28OReilly%29%29_files/2cols.css" media="all"> 	<link rel="stylesheet" href="Recipe%2014.19.%20Running%20Servlets%20with%20WEBrick%20-%20Ruby%20Cookbook%20%28Cookbooks%20%28OReilly%29%29_files/3cols.css" media="all"> 	<link rel="stylesheet" href="Recipe%2014.19.%20Running%20Servlets%20with%20WEBrick%20-%20Ruby%20Cookbook%20%28Cookbooks%20%28OReilly%29%29_files/4cols.css" media="all"> 	<link rel="stylesheet" href="Recipe%2014.19.%20Running%20Servlets%20with%20WEBrick%20-%20Ruby%20Cookbook%20%28Cookbooks%20%28OReilly%29%29_files/8cols.css" media="all"> 	<link rel="stylesheet" href="Recipe%2014.19.%20Running%20Servlets%20with%20WEBrick%20-%20Ruby%20Cookbook%20%28Cookbooks%20%28OReilly%29%29_files/10cols.css" media="all"> 	<link rel="stylesheet" href="Recipe%2014.19.%20Running%20Servlets%20with%20WEBrick%20-%20Ruby%20Cookbook%20%28Cookbooks%20%28OReilly%29%29_files/11cols.css" media="all"> 	 <script async="" src="Recipe%2014.19.%20Running%20Servlets%20with%20WEBrick%20-%20Ruby%20Cookbook%20%28Cookbooks%20%28OReilly%29%29_files/cbgapi.loaded_1"></script><script async="" src="Recipe%2014.19.%20Running%20Servlets%20with%20WEBrick%20-%20Ruby%20Cookbook%20%28Cookbooks%20%28OReilly%29%29_files/cbgapi.loaded_0"></script><script src="Recipe%2014.19.%20Running%20Servlets%20with%20WEBrick%20-%20Ruby%20Cookbook%20%28Cookbooks%20%28OReilly%29%29_files/watch.js" async="" type="text/javascript"></script><script src="Recipe%2014.19.%20Running%20Servlets%20with%20WEBrick%20-%20Ruby%20Cookbook%20%28Cookbooks%20%28OReilly%29%29_files/ga.js" async="" type="text/javascript"></script><script gapi_processed="true" src="Recipe%2014.19.%20Running%20Servlets%20with%20WEBrick%20-%20Ruby%20Cookbook%20%28Cookbooks%20%28OReilly%29%29_files/plusone.js" async="" type="text/javascript"></script><script gapi_processed="true" src="Recipe%2014.19.%20Running%20Servlets%20with%20WEBrick%20-%20Ruby%20Cookbook%20%28Cookbooks%20%28OReilly%29%29_files/plusone.js" async="" type="text/javascript"></script><script src="Recipe%2014.19.%20Running%20Servlets%20with%20WEBrick%20-%20Ruby%20Cookbook%20%28Cookbooks%20%28OReilly%29%29_files/ca-pub-0797006098659510.js" type="text/javascript" async=""></script><script type="text/javascript" src="Recipe%2014.19.%20Running%20Servlets%20with%20WEBrick%20-%20Ruby%20Cookbook%20%28Cookbooks%20%28OReilly%29%29_files/transfer.js"></script><link type="text/css" rel="stylesheet" href="Recipe%2014.19.%20Running%20Servlets%20with%20WEBrick%20-%20Ruby%20Cookbook%20%28Cookbooks%20%28OReilly%29%29_files/mytube.css"><script src="Recipe%2014.19.%20Running%20Servlets%20with%20WEBrick%20-%20Ruby%20Cookbook%20%28Cookbooks%20%28OReilly%29%29_files/mutationObserver.js"></script><script src="Recipe%2014.19.%20Running%20Servlets%20with%20WEBrick%20-%20Ruby%20Cookbook%20%28Cookbooks%20%28OReilly%29%29_files/mytube.js"></script><mytubeelement data="{&quot;bundle&quot;:{&quot;label_delimitor&quot;:&quot;:&quot;,&quot;percentage&quot;:&quot;%&quot;,&quot;smart_buffer&quot;:&quot;Smart Buffer&quot;,&quot;start_playing_when_buffered&quot;:&quot;Start playing when buffered&quot;,&quot;sound&quot;:&quot;Sound&quot;,&quot;desktop_notification&quot;:&quot;Desktop Notification&quot;,&quot;continuation_on_next_line&quot;:&quot;-&quot;,&quot;loop&quot;:&quot;Loop&quot;,&quot;only_notify&quot;:&quot;Only Notify&quot;,&quot;estimated_time&quot;:&quot;Estimated Time&quot;,&quot;global_preferences&quot;:&quot;Global Preferences&quot;,&quot;no_notification_supported_on_your_browser&quot;:&quot;No notification style supported on your browser version&quot;,&quot;video_buffered&quot;:&quot;Video Buffered&quot;,&quot;buffered&quot;:&quot;Buffered&quot;,&quot;hyphen&quot;:&quot;-&quot;,&quot;buffered_message&quot;:&quot;The video has been buffered as requested and is ready to play.&quot;,&quot;not_supported&quot;:&quot;Not Supported&quot;,&quot;on&quot;:&quot;On&quot;,&quot;off&quot;:&quot;Off&quot;,&quot;click_to_enable_for_this_site&quot;:&quot;Click to enable for this site&quot;,&quot;desktop_notification_denied&quot;:&quot;You have denied permission for desktop notification for this site&quot;,&quot;notification_status_delimitor&quot;:&quot;;&quot;,&quot;error&quot;:&quot;Error&quot;,&quot;adblock_interferance_message&quot;:&quot;Adblock (or similar extension) is known to interfere with SmartVideo. Please add this url to adblock whitelist.&quot;,&quot;calculating&quot;:&quot;Calculating&quot;,&quot;waiting&quot;:&quot;Waiting&quot;,&quot;will_start_buffering_when_initialized&quot;:&quot;Will start buffering when initialized&quot;,&quot;will_start_playing_when_initialized&quot;:&quot;Will start playing when initialized&quot;,&quot;completed&quot;:&quot;Completed&quot;,&quot;buffering_stalled&quot;:&quot;Buffering is stalled. Will stop.&quot;,&quot;stopped&quot;:&quot;Stopped&quot;,&quot;hr&quot;:&quot;Hr&quot;,&quot;min&quot;:&quot;Min&quot;,&quot;sec&quot;:&quot;Sec&quot;,&quot;any_moment&quot;:&quot;Any Moment&quot;,&quot;popup_donate_to&quot;:&quot;Donate to&quot;,&quot;extension_id&quot;:null},&quot;prefs&quot;:{&quot;desktopNotification&quot;:true,&quot;soundNotification&quot;:true,&quot;logLevel&quot;:0,&quot;enable&quot;:true,&quot;loop&quot;:false,&quot;hidePopup&quot;:false,&quot;autoPlay&quot;:false,&quot;autoBuffer&quot;:false,&quot;autoPlayOnBuffer&quot;:false,&quot;autoPlayOnBufferPercentage&quot;:42,&quot;autoPlayOnSmartBuffer&quot;:true,&quot;quality&quot;:&quot;default&quot;,&quot;fshd&quot;:false,&quot;onlyNotification&quot;:false,&quot;enableFullScreen&quot;:true,&quot;saveBandwidth&quot;:false,&quot;hideAnnotations&quot;:false,&quot;turnOffPagedBuffering&quot;:false}}" event="preferencesUpdated" id="myTubeRelayElementToPage"></mytubeelement><mytubeelement data="{&quot;loadBundle&quot;:true}" event="relayPrefs" id="myTubeRelayElementToTab"></mytubeelement> 
+	<!-- Responsive Stylesheets --> 	<link rel="stylesheet" media="only screen and (max-width: 1024px) and (min-width: 769px)" href="Recipe%2014.19.%20Running%20Servlets%20with%20WEBrick%20-%20Ruby%20Cookbook%20%28Cookbooks%20%28OReilly%29%29_files/1024.css"> 	<link rel="stylesheet" media="only screen and (max-width: 768px) and (min-width: 481px)" href="Recipe%2014.19.%20Running%20Servlets%20with%20WEBrick%20-%20Ruby%20Cookbook%20%28Cookbooks%20%28OReilly%29%29_files/768.css"> 	<link rel="stylesheet" media="only screen and (max-width: 480px)" href="Recipe%2014.19.%20Running%20Servlets%20with%20WEBrick%20-%20Ruby%20Cookbook%20%28Cookbooks%20%28OReilly%29%29_files/480.css"> 
+	<!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements and feature detects --> 	<script src="Recipe%2014.19.%20Running%20Servlets%20with%20WEBrick%20-%20Ruby%20Cookbook%20%28Cookbooks%20%28OReilly%29%29_files/modernizr-2.js"></script> 
+	<style type="text/css"> 
+	/*  THIS IS JUST TO GET THE GRID TO SHOW UP.  YOU DONT NEED THIS IN YOUR CODE */
+
+	#maincontent .col {
+		/*background: #ccc;
+		background: rgba(204, 204, 204, 0.85);*/
+
+	}
+
+	</style> 	 <!-- start dropdown menu scripts--> <script type="text/javascript"> jQuery(document).ready(function() {
+jQuery("#dropmenu ul").css({display: "none"}); // Opera Fix
+jQuery("#dropmenu li").hover(function(){
+		jQuery(this).find('ul:first').css({visibility: "visible",display: "none"}).show(268);
+		},function(){
+		jQuery(this).find('ul:first').css({visibility: "hidden"});
+		});
+});
+function goPage(sPage){ window.location.href = sPage; } </script>  <script type="text/javascript" src="Recipe%2014.19.%20Running%20Servlets%20with%20WEBrick%20-%20Ruby%20Cookbook%20%28Cookbooks%20%28OReilly%29%29_files/c" async="async"></script> <link rel="stylesheet" type="text/css" media="all" href="Recipe%2014.19.%20Running%20Servlets%20with%20WEBrick%20-%20Ruby%20Cookbook%20%28Cookbooks%20%28OReilly%29%29_files/style.css"> <!--[if lte IE 7]> <style> .content { margin-right: -1px; } 
+ul.nav a { zoom: 1; }   </style> <![endif]-->  </head>  <body> 
+ <div id="wrapper"> 	<div id="headcontainer"> 		<header> 			<div class="section group"> 				<div class="col span_6_of_8"> 				<ul id="dropmenu"><li><a href="http://flylib.com/">Home</a></li><li> <a href="http://flylib.com/category/en/1/"> Computers &amp; Technology</a> <ul> <li> <a href="http://flylib.com/category/en/1/2/"> Home Computing</a> </li> <li> <a href="http://flylib.com/category/en/1/5/"> Business &amp; Culture</a> </li> <li> <a href="http://flylib.com/category/en/1/17/"> Programming</a> </li> <li> <a href="http://flylib.com/category/en/1/52/"> Software</a> </li> <li> <a href="http://flylib.com/category/en/1/53/"> Web Development</a> </li> <li> <a href="http://flylib.com/category/en/1/64/"> Certification</a> </li> <li> <a href="http://flylib.com/category/en/1/69/"> Networking</a> </li> <li> <a href="http://flylib.com/category/en/1/78/"> Security &amp; Encryption</a> </li> <li> <a href="http://flylib.com/category/en/1/79/"> Computer Science</a> </li> <li> <a href="http://flylib.com/category/en/1/96/"> Operating Systems</a> </li> <li> <a href="http://flylib.com/category/en/1/106/"> Microsoft</a> </li> <li> <a href="http://flylib.com/category/en/1/126/"> Hardware</a> </li> <li> <a href="http://flylib.com/category/en/1/137/"> Databases</a> </li> <li> <a href="http://flylib.com/category/en/1/147/"> Graphic Design</a> </li> <li> <a href="http://flylib.com/category/en/1/153/"> Apple</a> </li> <li> <a href="http://flylib.com/category/en/1/163/"> Digital Music</a> </li> <li> <a href="http://flylib.com/category/en/1/167/"> Digital Photography &amp; Video</a> </li> <li> <a href="http://flylib.com/category/en/1/174/"> Games &amp; Strategy Guides</a> </li> <li> <a href="http://flylib.com/category/en/1/177/"> Project Management</a> </li> <li> <a href="http://flylib.com/category/en/1/180/"> Mobile &amp; Wireless Computing</a> </li> </ul> </li> <li> <a href="http://flylib.com/category/en/182/"> Education &amp; Reference</a> <ul> <li> <a href="http://flylib.com/category/en/182/183/"> Encyclopedias</a> </li> <li> <a href="http://flylib.com/category/en/182/191/"> Test Preparation</a> </li> <li> <a href="http://flylib.com/category/en/182/197/"> Studying &amp; Workbooks</a> </li> <li> <a href="http://flylib.com/category/en/182/199/"> Schools &amp; Teaching</a> </li> <li> <a href="http://flylib.com/category/en/182/204/"> Writing, Research &amp; Publishing Guides</a> </li> <li> <a href="http://flylib.com/category/en/182/208/"> Foreign Language Study &amp; Reference</a> </li> <li> <a href="http://flylib.com/category/en/182/209/"> Atlases &amp; Maps</a> </li> <li> <a href="http://flylib.com/category/en/182/212/"> Dictionaries &amp; Thesauruses</a> </li> <li> <a href="http://flylib.com/category/en/182/213/"> Words, Language &amp; Grammar</a> </li> <li> <a href="http://flylib.com/category/en/182/217/"> College &amp; University</a> </li> <li> <a href="http://flylib.com/category/en/182/218/"> Trivia &amp; Fun Facts</a> </li> <li> <a href="http://flylib.com/category/en/182/219/"> Consumer Guides</a> </li> </ul> </li> <li> <a href="http://flylib.com/category/en/253/"> Business &amp; Investing</a> <ul> <li> <a href="http://flylib.com/category/en/253/254/"> Industries &amp; Professions</a> </li> <li> <a href="http://flylib.com/category/en/253/269/"> Management &amp; Leadership</a> </li> <li> <a href="http://flylib.com/category/en/253/288/"> Organizational Behavior</a> </li> <li> <a href="http://flylib.com/category/en/253/291/"> Personal Finance</a> </li> <li> <a href="http://flylib.com/category/en/253/293/"> Small Business &amp; Entrepreneurship</a> </li> <li> <a href="http://flylib.com/category/en/253/298/"> Popular Economics</a> </li> <li> <a href="http://flylib.com/category/en/253/299/"> Marketing &amp; Sales</a> </li> <li> <a href="http://flylib.com/category/en/253/309/"> Finance</a> </li> <li> <a href="http://flylib.com/category/en/253/310/"> Skills</a> </li> <li> <a href="http://flylib.com/category/en/253/318/"> Business Life</a> </li> <li> <a href="http://flylib.com/category/en/253/322/"> Economics</a> </li> <li> <a href="http://flylib.com/category/en/253/328/"> Job Hunting &amp; Careers</a> </li> <li> <a href="http://flylib.com/category/en/253/331/"> Biography &amp; History</a> </li> <li> <a href="http://flylib.com/category/en/253/333/"> Reference</a> </li> <li> <a href="http://flylib.com/category/en/253/334/"> International</a> </li> <li> <a href="http://flylib.com/category/en/253/337/"> Real Estate</a> </li> <li> <a href="http://flylib.com/category/en/253/338/"> Investing</a> </li> <li> <a href="http://flylib.com/category/en/253/341/"> Women &amp; Business</a> </li> </ul> </li> <li> <a href="http://flylib.com/category/en/342/"> Science &amp; Math</a> <ul> <li> <a href="http://flylib.com/category/en/342/343/"> Mathematics</a> </li> <li> <a href="http://flylib.com/category/en/342/344/"> Technology</a> </li> <li> <a href="http://flylib.com/category/en/342/345/"> Reference</a> </li> <li> <a href="http://flylib.com/category/en/342/346/"> Earth Sciences</a> </li> <li> <a href="http://flylib.com/category/en/342/349/"> Physics</a> </li> <li> <a href="http://flylib.com/category/en/342/351/"> Biological Sciences</a> </li> <li> <a href="http://flylib.com/category/en/342/359/"> Behavioral Sciences</a> </li> <li> <a href="http://flylib.com/category/en/342/361/"> Nature &amp; Ecology</a> </li> <li> <a href="http://flylib.com/category/en/342/363/"> Astronomy &amp; Space Science</a> </li> <li> <a href="http://flylib.com/category/en/342/366/"> History &amp; Philosophy</a> </li> <li> <a href="http://flylib.com/category/en/342/367/"> Experiments, Instruments &amp; Measurement</a> </li> <li> <a href="http://flylib.com/category/en/342/369/"> Agricultural Sciences</a> </li> </ul> </li> </ul> 				</div> 				<div class="col span_2_of_8"> 				<form action="http://flylib.com/search.php" id="cse-search-box">   <div style="margin-top:-1px;">     <input name="cx" value="partner-pub-0797006098659510:7754693395" type="hidden">     <input name="cof" value="FORID:10" type="hidden">     <input name="ie" value="UTF-8" type="hidden">     <input name="q" size="25" type="text">     <input name="sa" value="Search" type="submit">   </div> </form> <script type="text/javascript" src="Recipe%2014.19.%20Running%20Servlets%20with%20WEBrick%20-%20Ruby%20Cookbook%20%28Cookbooks%20%28OReilly%29%29_files/brand"></script> 
+				</div> 			</div> 		</header> 	</div> <div id="maincontentcontainer"> 		<div id="maincontent"> 
+			<div class="section group"> 				<div class="col span_3_of_11"> 				
+					<div class="td">  <div class="sidebar1">   	<!-- Start Left Sidebar -->      
+  
+   <div class="submenu"> 	  <div class="h4">Category list</div>           <ul class="nav">             <li><a href="http://flylib.com/category/en/1/">Computers &amp; Technology</a></li><li><a href="http://flylib.com/category/en/1/2/">Home Computing</a></li><li><a href="http://flylib.com/category/en/1/2/3/">Internet</a></li><li><a href="http://flylib.com/category/en/1/2/3/4/">Online Searching</a></li>           </ul>         </div> 				<div class="ads"> 				<div style="width:300px;height:250px;text-align:center;">  <script type="text/javascript"><!--
+				google_ad_client = "ca-pub-0797006098659510";
+				/* flylib-300x250 */
+				google_ad_slot = "5929580247";
+				google_ad_width = 300;
+				google_ad_height = 250;
+				//--> 				</script> 				<script type="text/javascript" src="Recipe%2014.19.%20Running%20Servlets%20with%20WEBrick%20-%20Ruby%20Cookbook%20%28Cookbooks%20%28OReilly%29%29_files/show_ads.js"> 				</script><ins id="aswift_0_expand" style="display:inline-table;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><iframe mytubeid="mytube1" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;" frameborder="0" height="250" width="300"></iframe></ins></ins> 				 </div> 				</div> 				<div class="clear"></div> 		<!--start submenu--> 		  <div class="submenu"> 				<ul class="nav"> 					<li><a href="http://flylib.com/category/en/1/17/">Programming</a></li><li><a href="http://flylib.com/category/en/1/17/21/">Languages &amp; Tools</a></li><li><a href="http://flylib.com/category/en/1/17/34/">Software Design, Testing &amp; Engineering</a></li><li><a href="http://flylib.com/category/en/1/17/34/35/">Software Development</a></li><li><a href="http://flylib.com/category/en/1/17/34/37/">Object-Oriented Design</a></li><li><a href="http://flylib.com/category/en/1/53/">Web Development</a></li> 				</ul> 		  </div>           
+		<div class="simpage">         <div class="h4">Similar pages </div>         <ul><li><a href="http://flylib.com/books/en/4.10.1.133/1/" title="Preparing to Implement the Service Factory Pattern">Preparing to Implement the Service Factory Pattern</a></li><li><a href="http://flylib.com/books/en/4.100.1.57/1/" title="Running Microsoft Windows, DOS, and Macintosh Applications">Running Microsoft Windows, DOS, and Macintosh Applications</a></li><li><a href="http://flylib.com/books/en/4.121.1.96/1/" title="Chapter 14. Servlets and Web Applications">Chapter 14. Servlets and Web Applications</a></li><li><a href="http://flylib.com/books/en/4.138.1.102/1/" title="PROBLEM-SOLVING METHOD">PROBLEM-SOLVING METHOD</a></li><li><a href="http://flylib.com/books/en/4.15.1.55/1/" title="Running Tomcat Behind a Proxy Server">Running Tomcat Behind a Proxy Server</a></li><li><a href="http://flylib.com/books/en/4.163.1.12/1/" title="Section 2.2. Running the Example">Section 2.2. Running the Example</a></li><li><a href="http://flylib.com/books/en/4.237.1.26/1/" title="Servlet Design">Servlet Design</a></li><li><a href="http://flylib.com/books/en/4.255.1.15/1/" title="Recipe 1.1 Writing a Servlet">Recipe 1.1 Writing a Servlet</a></li><li><a href="http://flylib.com/books/en/4.255.1.168/1/" title="Recipe 16.11 Accessing or Removing Request Attributes in Servlets">Recipe 16.11 Accessing or Removing Request Attributes in Servlets</a></li><li><a href="http://flylib.com/books/en/4.323.1.120/1/" title="Traditional Browser-Specific DHTML">Traditional Browser-Specific DHTML</a></li><li><a href="http://flylib.com/books/en/4.326.1.61/1/" title="Smart Tags and Smart Tasks">Smart Tags and Smart Tasks</a></li><li><a href="http://flylib.com/books/en/4.331.1.19/1/" title="Hosting Manager Discovery">Hosting Manager Discovery</a></li><li><a href="http://flylib.com/books/en/4.503.1.54/1/" title="Traditional SAS Listing Output">Traditional SAS Listing Output</a></li><li><a href="http://flylib.com/books/en/2.107.1.20/1/" title="2.3 Servlets and JSPs">2.3 Servlets and JSPs</a></li></ul> 		</div> 		
+          
+    <!-- Left .sidebar1 end --></div></div> 				
+				</div> 				
+				<!--block#1--> 				<div class="col span_8_of_11"> 					<div class="section group"> 						<div class="col span_8_of_10"> 							<h1>Recipe 14.19. Running Servlets with WEBrick</h1> 							<div class="section group"> 	<div class="col span_1_of_2"> 		<div id="___plus_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 450px; height: 15px;"><iframe mytubeid="mytube2" title="+Share" data-gapiattached="true" src="Recipe%2014.19.%20Running%20Servlets%20with%20WEBrick%20-%20Ruby%20Cookbook%20%28Cookbooks%20%28OReilly%29%29_files/sharebutton.html" name="I0_1427682395071" id="I0_1427682395071" vspace="0" tabindex="0" style="position: static; top: 0px; width: 450px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 15px;" scrolling="no" marginwidth="0" marginheight="0" hspace="0" frameborder="0" width="100%"></iframe></div><br><a href="javascript:goPage('http://www.amazon.com/s/?url=search-alias=stripbooks&amp;field-keywords=0596523696&amp;tag=technicalibra-20&amp;link_code=wql&amp;camp=212361&amp;creative=380601&amp;_encoding=UTF-8');" rel="nofollow" class="btn btn-warning">Buy on amazon.com &gt;&gt;</a> 	</div> 	<div class="col span_1_of_2"> 		<span class="authors"><a href="javascript:goPage('/search/en/authors/carlson+l/')" rel="nofollow" title="Carlson L." class="label label-default">Carlson L.</a>,&nbsp;<a href="javascript:goPage('/search/en/authors/richardson+l/')" rel="nofollow" title=" Richardson L." class="label label-default"> Richardson L.</a></span><ul class="info"></ul> 	</div> </div> 					 <div class="section group"> 	<div class="col span_1_of_3"> 		<a href="javascript:goPage('/books/en/2.44.1.243/1/')" rel="nofollow" title="&lt;&lt; Previous page">&lt;&lt; Previous page</a> 	</div> 	<div class="col span_1_of_3 cc"> 		<a href="http://flylib.com/books/en/2.44.1.1/1/" title="Table of content">Table of contents</a> 	</div> 	<div class="col span_1_of_3 rr"> 		<a href="http://flylib.com/books/en/2.44.1.245/1/" title="Next page &gt;&gt;">Next page &gt;&gt;</a> 	</div> </div>	
+	
+							<div id="content" class="style1"> 								<br><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td valign="top">
+ <h3>Recipe 14.19. Running Servlets with WEBrick</h3>
+ 
+
+ 
+
+ <p><span>Credit: John-Mason Shackelford</span></p>
+
+ <h4>Problem</h4>
+ <p>You want to embed a server in your Ruby application. Your project is
+ not a traditional web application, or else it's too small to justify 
+the use of a framework like Rails or Nitro.</p>
+
+
+ <h4>Solution</h4>
+ <p>Write a custom servlet for WEBrick, a web server implemented in Ruby and included in the standard library.<sup>[7]</sup></p><blockquote><p><sup>[7]</sup> Don't confuse WEBrick servlets with Java servlets. The concepts are similar, but they don't implement the same API.</p></blockquote>
+ <p>Configure <tt>WEBrick</tt> by creating a new <tt>HTTPServer</tt> instance and mouting servlets. The default <tt>FileHandler</tt> acts like a "normal" web server: it serves a URL-space corresponding to a directory on disk. It delegates requests for <tt>*.cgi</tt> files to the <tt>CGIHandler</tt>, renders <tt>*.rhtml</tt> files with <tt>ERb</tt> using the <tt>ERBHandler</tt> servlet, and serves other files (such as static HTML files) as they are.</p>
+ <p>This server mounts three servlets on a server running on port 8000 
+on your local machine. Each servlet serves documents, CGI scripts, and <tt>.rhtml</tt> templates from a different directory on disk:</p>
+ <pre>	#!/usr/bin/ruby
+	# simple_servlet_server.rb
+	require 'webrick'
+	include WEBrick
+
+	s = HTTPServer.new(:Port =&gt; 8000)
+	# Add a mime type for *.rhtml files
+	HTTPUtils::DefaultMimeTypes.store('rhtml', 'text/html')
+
+	# Required for CGI on Windows; unnecessary on Unix/Linux
+	s.config.store( :CGIInterpreter, "#{HTTPServlet::CGIHandler::Ruby}")
+
+	# Mount  
+servlets
+	s.mount('/',       HTTPServlet::FileHandler, '/var/www/html')
+	s.mount('/bruce',  HTTPServlet::FileHandler, '/home/dibbbr/htdoc')
+	s.mount('/marty',  HTTPServlet::FileHandler, '/home/wisema/htdoc')
+
+	# Trap signals so as to shutdown cleanly.
+	['TERM', 'INT'].each do |signal|
+	  trap(signal){ s.shutdown }
+	end
+
+	# Start the server and block on input.
+	s.start
+ </pre><br>
+
+
+
+ <h4>Discussion</h4>
+ <p> 
+WEBrick is robust, mature, and easy to extend. Beyond serving static HTML pages, <tt>WEBrick</tt> supports traditional CGI scripts, <tt>ERb</tt>-based
+ templating like PHP or JSP, and custom servlet classes. While most of 
+WEBrick's API is oriented toward responding to HTTP requests, you can 
+also use it to implement servers that speak another protocol. (For more 
+on this capability, see the Daytime server example on the WEBrick home 
+page.)</p>
+ <p>The first two arguments to <tt>HTTPServer#mount</tt> (the mount directory and servlet class) are used by the <tt>mount</tt>
+ method itself; any additional arguments are simply passed along to the 
+servlet. This way, you can configure a servlet while you mount it; the <tt>FileHandler</tt> servlet requires an argument telling it which directory on disk contains the web content.</p>
+ <p>When a client requests a URL, WEBrick tries to match it against the 
+entries in its mounting table. The mounting order is irrelevant. Where 
+multiple mount locations might apply to a single directory, WEBrick 
+picks the longest match.</p>
+ <p>When the request is for a directory (like <span>http://localhost/bruce/</span>), the server looks for the files <span>index.html, index.htm, index.cgi</span>, or <span>index.rhtml</span>. This is configurable via the <tt>:DirectoryIndex</tt> configuration parameter. The snippet below adds another file to the list of directory index files:</p>
+ <pre>	s.config.store(:DirectoryIndex,
+	                  s.config[:DirectoryIndex] &lt;&lt; "default.htm")
+ </pre><br>
+
+ <p>When the standard handlers provided by <tt>WEBrick</tt> won't work for you, write a custom servlet. Rubyists have written custom <tt>WEBrick</tt> servlets to handle SOAP and XML-RPC services, implement a WebDAV server, process <tt>eruby</tt> templates instead of <tt>ERb</tt> templates, and fork processes to distribute load on machines with multiple CPUs.</p>
+ <p>To write your own <tt> 
+WEBrick</tt> servlet, simply subclass <tt>HTTPServlet::AbstractServlet</tt> and write <tt>do_</tt>
+ methods corresponding to the HTTP methods you wish to handle. Then 
+mount your servlet class as shown in the Solution. The following example
+ handles <tt>HTTP GET</tt> requests via the <tt>do_GET</tt> method, and <tt>POSTs</tt> via an alias. <tt>HEAD</tt> and <tt>OPTIONS</tt> requests are implemented in the <tt>AbstractServlet</tt> itself.</p>
+ <pre>	#!/usr/bin/ruby
+	# custom_servlet_server.rb
+	require 'webrick'
+	include WEBrick
+
+	class CustomServlet &lt; HTTPServlet::AbstractServlet
+	  def do_GET(request, response)
+	    response.status = 200 # Success
+	    response.body = "Hello World"
+	    response['Content-Type'] = 'text/plain'
+	  end
+
+	  # Respond with an HTTP POST just as we do for the HTTP GET.
+	  alias :do_POST :do_GET
+	end
+
+	# Mount  
+servlets.
+	s = HTTPServer.new(:Port =&gt; 8001 )
+	s.mount('/tricia', CustomServlet )
+
+	# Trap signals so as to shutdown cleanly.
+	['TERM', 'INT'].each do |signal|
+	  trap(signal){ s.shutdown }
+	end
+
+	# Start the server and block on input.
+	s.start
+ </pre><br>
+
+ <p>Start that server, visit <span>http://localhost:8001/tricia/</span>, and you'll see the string "Hello World".</p>
+ <p>Beyond defining handlers for arbitrary HTTP methods and configuring 
+custom servlets with mount options, we can also control how often 
+servlet instances are initialized. Ordinarily, a new servlet instance is
+ instantiated for every request. Since each request has its own instance
+ of the servlet class, you are free to write custom servlets without 
+worrying about the servlet's state and thread safety (unless, of course,
+ you share resources between servlet instances).</p>
+ <p>But you can get faster request handlingat the expense of a slower startup timeby moving some work out of the <tt>do_</tt> methods and into the sevlet's <tt>initialize</tt> method. Instead of creating a new servlet instance with every request, you can override the class method <tt>HTTPServlet::AbstractServlet.get_instance</tt>
+ and manage a pool of servlet instances. This works especially well when
+ your request handling methods are reentrant, so that you can avoid cost
+ costly thread synchronization.</p>
+ <p>The following example uses code from Recipe 12.13 to serve up a 
+certificate of completion to the individual named by the HTTP request. 
+We use the templating approach discussed in the PDF recipe to prepare 
+most of the certificate ahead of time. During request handling, we do 
+nothing but fill in the recipient's name.</p>
+ <p>The <tt>PooledServlet</tt> class below does the work of pooling the servlet handlers:</p>
+ <pre>	#!/usr/bin/ruby
+	# certificate_server.rb
+	require ' 
+webrick'
+	require 'thread'
+	require 'cgi'
+
+	include WEBrick
+
+	class PooledServlet &lt; HTTPServlet::AbstractServlet
+
+	  INIT_MUTEX = Mutex.new
+	  SERVLET_POOL = []
+
+	  @@pool_size = 2
+
+	  # Create a single instance of the servlet to avoid repeating the costly
+	  # initialization.
+	  def self.get_instance(config, *options)
+	    unless SERVLET_POOL.size == @@pool_size
+	      INIT_MUTEX.synchronize do
+	        SERVLET_POOL.clear
+	        @@pool_size.times{ SERVLET_POOL &lt;&lt; new( config, *options ) }
+	      end
+	    end
+	    s = SERVLET_POOL.find{|s| ! s.busy?} while s.nil?
+	    return s
+	  end
+
+	  def self.pool_size( size )
+	    @@pool_size = size
+	  end
+
+	  def busy?
+	    @busy
+	  end
+
+	  def service(req, res)
+	    @busy = true
+	    super
+	    @busy = false
+	  end
+	end
+ </pre><br>
+
+ <p>Note that by placing the <tt>synchronize</tt> block within the <tt>unless</tt>
+ block, we expose ourselves to the possibility that, when the server 
+first starts up, the servlet pool may be initialized more than once. But
+ it's not really a problem if that does happen, and if we put the <tt>synchronize</tt> block there we don't have to synchronize on every single request.</p>
+ <p>You've heard it before: "Avoid premature optimization." Assumptions 
+about the impact of the servlet pool size on memory consumption and 
+performance often prove to be wrong, given the complexities introduced 
+by garbage collection and the variation in the efficiency of various 
+operations on different platforms. Code first, tune later.</p>
+ <p>Here's the application-specific code. The file <tt>certificate_pdf.rb</tt> should contain the <tt>Certificate</tt> class defined in the Discussion of Recipe 12.13.</p>
+ <p>When the servlet is initialized, we generate the PDF certificate, leaving the name blank:</p>
+ <pre>	require 'certificate_pdf'
+
+	class PDFCertificateServlet &lt; PooledServlet
+
+	  pool_size 10
+
+	  def initialize(server, *options)
+	    super
+	    @certificate = Certificate.new(options.first)
+	  end
+ </pre><br>
+
+ <p>When the client makes a request, we load the certificate, fill in the name, and send it as the body of the HTTP response:</p>
+ <pre>	def do_GET(request, response)
+	  if name = request.query['name']
+	    filled_in = @certificate.award_to(CGI.unescape(name))
+
+	    response.body            = filled_in.render
+	    response.status          = 200                       # Success
+	    response['Content-Type'] = 'application/pdf'
+	    response['Size']         = response.body.size
+	  else
+	    raise HTTPStatus::Forbidden.new("missing attribute: 'name'")
+	 end
+	end
+ </pre><br>
+
+ <p>The rest of the code should look familiar by now:</p>
+ <pre>	  # Respond with an HTTP POST just as we do for the HTTP GET
+	  alias :do_POST :do_GET
+	end
+
+	# Mount  
+servlets
+	s = HTTPServer.new(:Port =&gt; 8002)
+	s.mount('/', PDFCertificateServlet, 'Ruby Hacker')
+
+	# Trap signals so as to shutdown cleanly.
+	['TERM', 'INT'].each do |signal|
+	  trap(signal){ s.shutdown }
+	end
+	# Start the server and block on input.
+	s.start
+ </pre><br>
+
+ <p>Start this server, and you can visit <span>http://localhost:8002/?name=My+Name</span> to get a customized PDF certificate.</p>
+ <p>The code above illustrates many other basic features of  
+WEBrick: access to request parameters, servlet configuration at mount 
+time, use of a servlet pool to handle expensive operations up front, and
+ error pages.</p>
+ <p>Besides <tt>HTTPStatus::Forbidden</tt>, demonstrated above, WEBrick 
+provides exceptions for each of the HTTP 1.1 status codes. The classes 
+are not listed in the RDoc, but you can infer them from <tt>HTTPStatus::StatusMessage</tt> table. The class names correspond to the names given in the WC3 reference listed below.</p>
+
+
+ <h4>See Also</h4>
+ <ul><li><p>Recipe 12.13, "Generating PDF Files," for the <tt>CertificatePDF</tt> class used by the certificate server</p></li><li><p>WEBrick's web site (http://webrick.org/) offers a number of examples as well as links to related libraries</p></li><li><p>Mongrel is an up-and-coming Ruby web server that might be the next WEBrick (http://mongrel.rubyforge.org/)</p></li><li><p>The RDoc is available online at http://www.ruby-doc.org/stdlib/libdoc/webrick/rdoc/index.html</p></li><li><p><span>Gnome's Guide to WEBrick</span>
+ at http://microjet.ath.cx/webrickguide/html/html_webrick.html provides 
+the most comprehensive coverage of WEBrick beyond the RDoc and the 
+source itself; the <span>Guide</span> is available in both html and PDF formats</p></li><li><p>Eric Hodel has written a couple of short articles on WEBrick  
+servlets and working with HTTP cookies (http://segment7.net/projects/ruby/WEBrick/index.html)</p></li><li><p>An article on the <span>Linux Journal</span>
+ web site, "At the ForgeGetting Started with Ruby," provides a basic 
+introduction to Ruby CGI and WEBrick servlets 
+(http://www.linuxjournal.com/article/8356)</p></li><li><p>For a complete
+ list of HTTP 1.1 status codes and explanations as to what they mean, 
+see http://www.w.org/Protocols/rfc2616/rfc2616-sec10.html</p></li></ul>
+
+
+ </td></tr></tbody></table>
+ <br> 							</div> 						</div> 						<div class="col span_2_of_10 rr"> 							
+								<div class="ads-160x600"> 									<script async="" src="Recipe%2014.19.%20Running%20Servlets%20with%20WEBrick%20-%20Ruby%20Cookbook%20%28Cookbooks%20%28OReilly%29%29_files/adsbygoogle.js"></script> <!-- fl-4 --> <ins data-adsbygoogle-status="done" class="adsbygoogle" style="display:inline-block;width:160px;height:600px" data-ad-client="ca-pub-0797006098659510" data-ad-slot="0873446155"><ins id="aswift_1_expand" style="display:inline-table;border:none;height:600px;margin:0;padding:0;position:relative;visibility:visible;width:160px;background-color:transparent"><ins id="aswift_1_anchor" style="display:block;border:none;height:600px;margin:0;padding:0;position:relative;visibility:visible;width:160px;background-color:transparent"><iframe mytubeid="mytube3" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;" frameborder="0" height="600" width="160"></iframe></ins></ins></ins> <script> (adsbygoogle = window.adsbygoogle || []).push({}); </script> 								</div> 							
+						</div> 					</div> 					
+					<div class="section group"> 						<div class="ads-580x400"> 						<script async="" src="Recipe%2014.19.%20Running%20Servlets%20with%20WEBrick%20-%20Ruby%20Cookbook%20%28Cookbooks%20%28OReilly%29%29_files/adsbygoogle.js"></script> <!-- fly-big --> <ins data-adsbygoogle-status="done" class="adsbygoogle" style="display:inline-block;width:580px;height:400px" data-ad-client="ca-pub-0797006098659510" data-ad-slot="2014621043"><ins id="aswift_2_expand" style="display:inline-table;border:none;height:400px;margin:0;padding:0;position:relative;visibility:visible;width:580px;background-color:transparent"><ins id="aswift_2_anchor" style="display:block;border:none;height:400px;margin:0;padding:0;position:relative;visibility:visible;width:580px;background-color:transparent"><iframe mytubeid="mytube4" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_2" name="aswift_2" style="left:0;position:absolute;top:0;" frameborder="0" height="400" width="580"></iframe></ins></ins></ins> <script> (adsbygoogle = window.adsbygoogle || []).push({}); </script> 						</div> 					</div> 					
+					
+					
+						<div class="servicebox2"> 						  <div class="h4">Similar products </div> 						  <ul> 							<li><a href="javascript:goPage('http://www.amazon.com/s/?url=search-alias=stripbooks&amp;field-keywords=0321584104&amp;tag=technicalibra-20&amp;link_code=wql&amp;camp=212361&amp;creative=380601&amp;_encoding=UTF-8')" rel="nofollow"><img src="Recipe%2014.19.%20Running%20Servlets%20with%20WEBrick%20-%20Ruby%20Cookbook%20%28Cookbooks%20%28OReilly%29%29_files/4347-1.jpg" alt="Eloquent Ruby (Addison-Wesley Professional Ruby Series)" title="Eloquent Ruby (Addison-Wesley Professional Ruby Series)"><p>Eloquent Ruby (Addison-Wesley Professional Ruby Series)</p></a></li><li><a href="javascript:goPage('http://www.amazon.com/s/?url=search-alias=stripbooks&amp;field-keywords=0321743121&amp;tag=technicalibra-20&amp;link_code=wql&amp;camp=212361&amp;creative=380601&amp;_encoding=UTF-8')" rel="nofollow"><img src="Recipe%2014.19.%20Running%20Servlets%20with%20WEBrick%20-%20Ruby%20Cookbook%20%28Cookbooks%20%28OReilly%29%29_files/4347-2.jpg" alt="Ruby on Rails 3 Tutorial: Learn Rails by Example (Addison-Wesley Professional Ruby Series)" title="Ruby on Rails 3 Tutorial: Learn Rails by Example (Addison-Wesley Professional Ruby Series)"><p>Ruby on Rails 3 Tutorial: Learn Rails by Example (Addison-Wesley Professional Ruby Series)</p></a></li><li><a href="javascript:goPage('http://www.amazon.com/s/?url=search-alias=stripbooks&amp;field-keywords=0596516177&amp;tag=technicalibra-20&amp;link_code=wql&amp;camp=212361&amp;creative=380601&amp;_encoding=UTF-8')" rel="nofollow"><img src="Recipe%2014.19.%20Running%20Servlets%20with%20WEBrick%20-%20Ruby%20Cookbook%20%28Cookbooks%20%28OReilly%29%29_files/4347-3.jpg" alt="The Ruby Programming Language" title="The Ruby Programming Language"><p>The Ruby Programming Language</p></a></li><li><a href="javascript:goPage('http://www.amazon.com/s/?url=search-alias=stripbooks&amp;field-keywords=0596523009&amp;tag=technicalibra-20&amp;link_code=wql&amp;camp=212361&amp;creative=380601&amp;_encoding=UTF-8')" rel="nofollow"><img src="Recipe%2014.19.%20Running%20Servlets%20with%20WEBrick%20-%20Ruby%20Cookbook%20%28Cookbooks%20%28OReilly%29%29_files/4347-4.jpg" alt="Ruby Best Practices" title="Ruby Best Practices"><p>Ruby Best Practices</p></a></li> 						  </ul> 						</div> 						
+						
+						<div class="servicebox2"> 						  <div class="h4">Similar pages </div> 						  <div class="sub_similar_books"> 						 
+							<div class="section group"><div class="col span_1_of_3"><span><a href="javascript:goPage('/books/en/1.403.1.1/1/')" rel="nofollow" title="Network Programming for Microsoft Windows ">Network Programming for Microsoft Windows </a></span><br><a href="http://flylib.com/books/en/1.403.1.35/1/" title="free windows sockets programming books">Free windows sockets programming books</a></div><div class="col span_1_of_3"><span><a href="javascript:goPage('/books/en/2.284.1.1/1/')" rel="nofollow" title="MCSA. MCSE 2003 JumpStart. Computer and Network Basics">MCSA. MCSE 2003 JumpStart. Computer and Network Basics</a></span><br><a href="http://flylib.com/books/en/2.284.1.17/1/" title="multiprocessing computer devices.">Multiprocessing computer devices.</a></div><div class="col span_1_of_3"><span><a href="javascript:goPage('/books/en/1.257.1.1/1/')" rel="nofollow" title="ADO. NET Programming in Visual Basic. NET ">ADO. NET Programming in Visual Basic. NET </a></span><br><a href="http://flylib.com/books/en/1.257.1.48/1/" title="any book for only code using in .net for connectionclass for devloping software">Any book for only code using in .net for connectionclass for devloping software</a></div></div><div class="section group"><div class="col span_1_of_3"><span><a href="javascript:goPage('/books/en/1.107.1.1/1/')" rel="nofollow" title="Visual Basic Shell Programming">Visual Basic Shell Programming</a></span><br><a href="http://flylib.com/books/en/1.107.1.90/1/" title="vb6 private const iid_iwebbrowserapp = {0002df05-0000-0000-c000-000000000046} ">Vb6 private const iid_iwebbrowserapp = {0002df05-0000-0000-c000-000000000046} </a></div><div class="col span_1_of_3"><span><a href="javascript:goPage('/books/en/4.336.1.1/1/')" rel="nofollow" title="BEA WebLogic Platform 7">BEA WebLogic Platform 7</a></span><br><a href="http://flylib.com/books/en/4.336.1.159/1/" title="running first servlet in weblogic">Running first servlet in weblogic</a></div><div class="col span_1_of_3"><span><a href="javascript:goPage('/books/en/3.381.1.1/1/')" rel="nofollow" title="Core Java Data Objects">Core Java Data Objects</a></span><br><a href="http://flylib.com/books/en/3.381.1.113/1/" title="how to use jdo with servlets">How to use jdo with servlets</a></div></div><div class="section group"></div> 						  
+						  </div> 						</div> 						
+				</div> 				<!--/block#1--> 
+			</div> 			
+			
+		</div> 	</div> <div id="footercontainer"> 		<footer class="group"> 			<a href="http://flylib.com/">flylib.com</a> © Copyright 2008-2013. All Rights Reserved. If you may any questions please contact us: flylib@qtcs.net<br> 
+			<div style="float:right;margin-right:20px;"><a href="javascript:gotopage('/articles/privacy/en/');">Privacy policy</a></div>     <!--copyright end--> 		</footer> 	</div> </div> 
+
+
+	<!-- JavaScript at the bottom for fast page loading --> 
+	<!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if necessary --> 	<script src="Recipe%2014.19.%20Running%20Servlets%20with%20WEBrick%20-%20Ruby%20Cookbook%20%28Cookbooks%20%28OReilly%29%29_files/jquery.js"></script> 	<script>window.jQuery || document.write('<script src="js/jquery-1.7.2.min.js"><\/script>')</script> 
+	<!--[if (lt IE 9) & (!IEMobile)]> 	<script src="js/selectivizr-min.js"></script> 	<![endif]--> 
+
+	<!-- More Scripts--> 	<script src="Recipe%2014.19.%20Running%20Servlets%20with%20WEBrick%20-%20Ruby%20Cookbook%20%28Cookbooks%20%28OReilly%29%29_files/responsivegridsystem.js"></script>  <script type="text/javascript">   (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })(); </script> 
+ <script type="text/javascript">   (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })(); </script>  <script type="text/javascript"> 
+  var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-12166988-9']);
+      _gaq.push(['_trackPageview']);
+
+  (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+              var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+                })();
+	function plusone_vote( obj ) {
+    _gaq.push(['_trackEvent','plusone',obj.state]);
+     }
+ </script> <!-- Yandex.Metrika counter --> <script type="text/javascript"> (function (d, w, c) {
+    (w[c] = w[c] || []).push(function() {
+        try {
+            w.yaCounter22278580 = new Ya.Metrika({id:22278580,
+                    clickmap:true,
+                    trackLinks:true, 
+                    accurateTrackBounce:true});
+        } catch(e) { }
+    });
+
+    var n = d.getElementsByTagName("script")[0],
+        s = d.createElement("script"),
+        f = function () { n.parentNode.insertBefore(s, n); };
+    s.type = "text/javascript";
+    s.async = true;
+    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+    if (w.opera == "[object Opera]") {
+        d.addEventListener("DOMContentLoaded", f, false);
+    } else { f(); }
+})(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="//mc.yandex.ru/watch/22278580" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter --> 
+
+   
+<iframe mytubeid="mytube5" tabindex="-1" style="width: 1px; height: 1px; position: absolute; top: -100px;" src="Recipe%2014.19.%20Running%20Servlets%20with%20WEBrick%20-%20Ruby%20Cookbook%20%28Cookbooks%20%28OReilly%29%29_files/postmessageRelay.html" id="oauth2relay331527484" name="oauth2relay331527484"></iframe></body></html>
